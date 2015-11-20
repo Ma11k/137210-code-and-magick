@@ -1,8 +1,11 @@
 //Функция возвращает правильные русские склонения. Сам написал
 function pluralizeRussian(numbers, rusWords) {
+  console.log( "numbers = " + numbers );
   var numLast = numbers.toString().slice(-1);
-  var numTwoLastDigits = numTwoLastDigits % 100;
-  if (numLast < 2 && (numTwoLastDigits < 10 || numTwoLastDigits > 20)) {
+  console.log( "numLast = " + numLast );
+  var numTwoLastDigits = numbers % 100;
+  console.log( "numTwoLastDigits = " + numTwoLastDigits );
+  if ((0 < numLast && numLast < 2) && (numTwoLastDigits < 10 || numTwoLastDigits > 20)) {
     return rusWords[0];
   }
   if ((numLast > 1 && numLast < 5) && (numTwoLastDigits < 11 || numTwoLastDigits > 21)) {
@@ -19,12 +22,12 @@ function getMessage(a, b) {
 
   if (a === true) {
     return 'Я попал в ' + b;
-  } else {
+  } else if (a === false) {
     return 'Я никуда не попал';
   }
 
   if (typeof a === 'number') {
-    return 'Я прыгнул на ' + (a  * 100) + ' ' + pluralizeRussian(steps, ['сантиметр','сантиметра','сантиметров']);
+    return 'Я прыгнул на ' + (a * 100) + ' ' + pluralizeRussian(a * 100, ['сантиметр','сантиметра','сантиметров']);
   }
 
   if (typeof a === 'object' && typeof b != 'object') {
