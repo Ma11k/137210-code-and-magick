@@ -1,10 +1,7 @@
 //Функция возвращает правильные русские склонения. Сам написал
 function pluralizeRussian(numbers, rusWords) {
-  console.log( "numbers = " + numbers );
   var numLast = numbers.toString().slice(-1);
-  console.log( "numLast = " + numLast );
   var numTwoLastDigits = numbers % 100;
-  console.log( "numTwoLastDigits = " + numTwoLastDigits );
   if ((0 < numLast && numLast < 2) && (numTwoLastDigits < 10 || numTwoLastDigits > 20)) {
     return rusWords[0];
   }
@@ -19,37 +16,28 @@ function pluralizeRussian(numbers, rusWords) {
 
 
 function getMessage(a, b) {
-
   if (a === true) {
     return 'Я попал в ' + b;
   } else if (a === false) {
     return 'Я никуда не попал';
   }
-
   if (typeof a === 'number') {
     return 'Я прыгнул на ' + (a * 100) + ' ' + pluralizeRussian(a * 100, ['сантиметр','сантиметра','сантиметров']);
   }
-
-  if (typeof a === 'object' && typeof b != 'object') {
+  if (typeof a === 'object' && typeof b !== 'object') {
     var steps = 0;
     for (var i = 0; i < a.length; i++) {
       steps += a[i];
     }
     return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['шаг','шага','шагов']);
   }
-
   if (typeof a === 'object' && typeof b === 'object') {
     var steps = 0;
-    var arrLength = a.length;
-    if (b.length > arrLength){
-      arrLength = b.length;
-    }
-    for (var i = 0; i < arrLength; i++) {
-      var aa = a[i] || 0;
-      var bb = b[i] || 0;
-      steps += aa + bb;
+    for (var i = 0; i < a.length; i++) {
+      var aElement = a[i] || 0;
+      var bElement = b[i] || 0;
+      steps += aElement * bElement;
     }
     return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['метр','метрa','метров']);
   }
-
 }
