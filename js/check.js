@@ -1,9 +1,9 @@
 /**
  * Gives correct Russian plurals
- * @param {integer} numbers How many
- * @param {object} rusWords Three Russian conjugations of the needed word
+ * @param {number} numbers How many
+ * @param {Array.<string>} rusWords Three Russian conjugations of the needed word
  * @returns {string}
- */
+*/
 function pluralizeRussian(numbers, rusWords) {
   var numLast = numbers.toString().slice(-1);
   var numTwoLastDigits = numbers % 100;
@@ -16,14 +16,14 @@ function pluralizeRussian(numbers, rusWords) {
   if ((numLast > 4 && numLast < 11) || (numTwoLastDigits > 10 || numTwoLastDigits < 21)) {
     return rusWords[2];
   }
+  throw new  Error('Bad number ');
 }
 
 
 /**
  * Outputs mage's message
- * @param {integer} a How many
- * @param {boolean} [b]
- * @param {object} [b]
+ * @param {boolean|number|Objects} a
+ * @param {boolean|number|Object} [b]
  * @returns {string}
  */
 function getMessage(a, b) {
@@ -46,7 +46,7 @@ function getMessage(a, b) {
   if (typeof a === 'object' && typeof b === 'object') {
     var steps = 0;
     for (var i = 0; i < a.length; i++) {
-      steps += a[i] * b[i];
+      steps += a[i] * (b[i] || 0 );
     }
     return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['метр', 'метрa', 'метров']);
   }
