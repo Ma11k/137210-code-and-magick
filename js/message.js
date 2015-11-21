@@ -11,6 +11,7 @@ var ctx = canvas.getContext('2d');
 
 function drawrect(width, height, radius, startX, startY, backC, borderC, borderW) {
   var borderW = borderW || 0;
+  var borderC = borderW ? (borderC || "transparent") : "transparent";
   var startX = startX + borderW || 0;
   var startY = startY + borderW || 0;
   var width = width +  startX + (borderW || 0) || width;
@@ -48,7 +49,7 @@ function drawrect(width, height, radius, startX, startY, backC, borderC, borderW
   ctx.fill();
 }
 //drawrect(120, 50, 5, 30, 30);
-drawrect(300, 200, 20, 0, 0, 'white', 'red', 20);
+drawrect(300, 200, 20, 0, 0, 'white', 'red', 0);
 //drawrect(320, 20, 10, 10, 30);
 
 
