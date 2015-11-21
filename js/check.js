@@ -1,9 +1,4 @@
-/**
- * Gives correct Russian plurals
- * @param {integer} numbers How many
- * @param {object} rusWords Three Russian conjugations of the needed word
- * @returns {string}
- */
+//Функция возвращает правильные русские склонения. Сам написал
 function pluralizeRussian(numbers, rusWords) {
   var numLast = numbers.toString().slice(-1);
   var numTwoLastDigits = numbers % 100;
@@ -19,35 +14,30 @@ function pluralizeRussian(numbers, rusWords) {
 }
 
 
-/**
- * Outputs mage's message
- * @param {integer} a How many
- * @param {boolean} [b]
- * @param {object} [b]
- * @returns {string}
- */
+
 function getMessage(a, b) {
   if (a === true) {
     return 'Я попал в ' + b;
-  }
-  if (a === false) {
+  } else if (a === false) {
     return 'Я никуда не попал';
   }
   if (typeof a === 'number') {
-    return 'Я прыгнул на ' + (a * 100) + ' ' + pluralizeRussian(a * 100, ['сантиметр', 'сантиметра', 'сантиметров']);
+    return 'Я прыгнул на ' + (a * 100) + ' ' + pluralizeRussian(a * 100, ['сантиметр','сантиметра','сантиметров']);
   }
   if (typeof a === 'object' && typeof b !== 'object') {
     var steps = 0;
     for (var i = 0; i < a.length; i++) {
       steps += a[i];
     }
-    return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['шаг', 'шага', 'шагов']);
+    return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['шаг','шага','шагов']);
   }
   if (typeof a === 'object' && typeof b === 'object') {
     var steps = 0;
     for (var i = 0; i < a.length; i++) {
-      steps += a[i] * b[i];
+      var aElement = a[i] || 0;
+      var bElement = b[i] || 0;
+      steps += aElement * bElement;
     }
-    return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['метр', 'метрa', 'метров']);
+    return 'Я прошёл ' + steps + ' ' + pluralizeRussian(steps, ['метр','метрa','метров']);
   }
 }
