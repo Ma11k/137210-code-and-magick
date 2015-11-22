@@ -378,8 +378,13 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      //this.ctx.font = '44px Arial';
+      //this.ctx.fillStyle = 'black';
       switch (this.state.currentStatus) {
         case Verdict.WIN:
+          drawRect(this, 200, 180, 20, 280, 40);
+          drawText(this, 'Привет!', 300, 80, 'black', '22px PT Mono');
+          // this.ctx.fillText( 'Ура! Я выиграл!' ,300, 20);
           console.log('you have won!');
           break;
         case Verdict.FAIL:
