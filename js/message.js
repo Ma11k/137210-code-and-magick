@@ -2,9 +2,13 @@ var canvas = document.createElement('canvas');
 canvas.width = 400;
 canvas.height = 400;
 canvas.id = 'magesays';
-canvas.style.position = 'absolute'
+canvas.style.position = 'absolute';
+canvas.style.zIndex = 100;
 var container = document.getElementsByTagName('header')[0];
 var ctx = canvas.getContext('2d');
+//ctx.strokeRect(0, 0, 100, 100);
+
+
 
 /**
  * Draws a [rounded] rectangle
@@ -18,7 +22,7 @@ var ctx = canvas.getContext('2d');
  * @param {string} [borderC] border color
  */
 function drawrect(width, height, radius, startX, startY, backC, borderW, borderC) {
-
+  ctx.clearRect(0,0,400,400);
   var borderW = borderW || 0;
   var borderC = borderW ? (borderC || "transparent") : "transparent";
   var startX = startX + borderW || 0;
@@ -45,19 +49,33 @@ function drawrect(width, height, radius, startX, startY, backC, borderW, borderC
   ctx.lineTo((startX || 0), height);
   ctx.arc(radius + (startX || 0), radius + (startY || 0), radius, 1 * Math.PI, 1.5 * Math.PI, false);
   ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'
   ctx.fill();
 }
+//drawrect(120, 50, 5, 30, 30);
+//drawrect(320, 20, 10, 10, 30);
+
+setTimeout(function () {drawrect(200, 100, 20, 0, 0, 'white', 0);}, 0);
+setTimeout(function () {drawrect(220, 120, 20, 0, 0, 'white', 0);}, 100);
+setTimeout(function () {drawrect(240, 140, 20, 0, 0, 'white', 0);}, 200);
+setTimeout(function () {drawrect(280, 180, 20, 0, 0, 'white', 0);}, 300);
+setTimeout(function () {drawrect(300, 200, 20, 0, 0, 'white', 0);}, 500);
+
+
+setTimeout(function () {
+  ctx.font = '44px Arial';
+  // Create gradient
+  var gradient=ctx.createLinearGradient(0,0,canvas.width,0);
+  gradient.addColorStop("0","magenta");
+  gradient.addColorStop("0.5","blue");
+  gradient.addColorStop("1.0","red");
+  // Fill with gradient
+  ctx.fillStyle=gradient;
+  ctx.fillText('Привет!', 30, 80);
+}, 500);
 
 
 
-//ctx.strokeRect(0, 0, 100, 100);
-//ctx.font = '14px Arial';
-//ctx.fillText('Привет!');
+
 //document.getElementsByTagName('body')[0].appendChild(canvas);
 container.insertBefore(canvas, container.firstChild);
-
-
-
-//drawrect(120, 50, 5, 30, 30);
-drawrect(300, 200, 20, 0, 0, 'white', 0);
-//drawrect(320, 20, 10, 10, 30);
