@@ -383,19 +383,19 @@
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawMultiLineTxt(this, 'Уря! Я выйграл!', 110, 20, textX, y + 40, '#FFFFFF','rgba(36, 255, 0, 0.81)', 20);
+          drawMultiLineTxt(this, 'Уря! Я выйграл!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono','rgba(36, 255, 0, 0.81)', 20);
           console.log('you have won!');
           break;
         case Verdict.FAIL:
-          drawMultiLineTxt(this, 'Я погиб, да что ж за фигня опять!', 110, 20, textX, y + 40, '#FFFFFF', 'rgba(255, 0, 0, 0.81)');
+          drawMultiLineTxt(this, 'Я погиб, да что ж за фигня опять!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono', 'rgba(255, 0, 0, 0.81)');
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
-          drawMultiLineTxt(this, 'Игра на паузе!', 110, 20, textX, y + 40, '#FFFFFF', 'rgb(251, 255, 252)');
+          drawMultiLineTxt(this, 'Игра на паузе!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono', 'rgb(251, 255, 252)');
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-        drawMultiLineTxt(this, 'Нажми пробел для начала игры! Если не нажмешь, то не поиграешь, дружок! Давай-давай!', 120, 20, textX, y + 40, '#0038ff', 'rgba(248, 255, 164, 0.81)', 10);
+        drawMultiLineTxt(this, 'Нажми пробел для начала игры! Если не нажмешь, то не поиграешь, дружок! Давай-давай!', 120, 20, textX, y + 20, '#0038ff', '14px PT Mono', 'rgba(248, 255, 164, 0.81)', 10);
           console.log('welcome to the game! Press Space to start');
           break;
       }

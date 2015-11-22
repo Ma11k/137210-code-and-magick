@@ -74,12 +74,12 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
 }
 
 
-function multiLineTxt(whereToDraw, text, textwidth) {
+function multiLineTxt(whereToDraw, text, textwidth, txtFont) {
   console.log( "textwidth = " + textwidth );
   var wordsArray = text.split(' ')
   //console.log( 'wordsArray = ' + wordsArray );
   var linesArray = [''];
-  whereToDraw.ctx.font = '14px Arial';
+  whereToDraw.ctx.font = txtFont;
   var u = 0;
   for (var i = 0; i < wordsArray.length; i++) {
     wordsArray[i] = wordsArray[i] + ' ';
@@ -117,9 +117,9 @@ function multiLineTxt(whereToDraw, text, textwidth) {
 }
 
 
-function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY, txtColor, bgColor, bgRadius) {
+function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY, txtColor, txtFont, bgColor, bgRadius) {
 
-  var textLines = multiLineTxt(whereToDraw, text, textwidth);
+  var textLines = multiLineTxt(whereToDraw, text, textwidth, txtFont);
   var startY = startY || 0;
   //Рисуем подложку
   var rectHeight = lineHeight * textLines.length;
@@ -129,7 +129,7 @@ function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, star
 
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
-      drawText(whereToDraw, textLines[i], startX, startY, txtColor, '14px Arial');
+      drawText(whereToDraw, textLines[i], startX, startY, txtColor, txtFont);
       startY = startY + lineHeight;
   }
 
