@@ -108,10 +108,16 @@ function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, star
 
   var textLines = multiLineTxt(whereToDraw, text, textwidth);
   var startY = startY || 0;
+  //Рисуем подложку
+  var rectHeight = lineHeight * textLines.length;
+
+  drawRect(whereToDraw, textwidth + 30, rectHeight + 10, 20, startX - (textwidth/2) - 25, startY - 25, 'rgba(0, 0, 0, 0.7)');
+  drawRect(whereToDraw, textwidth + 40, rectHeight + 10, 20, startX - (textwidth/2) - 30, startY - 30, 'rgba(255, 255, 255, 0.7)');
+
+  //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
       drawText(whereToDraw, textLines[i], startX, startY, 'red', '14px Arial');
       startY = startY + lineHeight;
   }
-
 
 }
