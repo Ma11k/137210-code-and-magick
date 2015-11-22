@@ -28,8 +28,8 @@ function drawRect(whereToDraw, width, height, radius, startX, startY, bgColor, b
   var borderC = borderW ? (borderC || 'transparent') : 'transparent';
   var startX = startX + borderW || 0;
   var startY = startY + borderW || 0;
-  var width = width +  startX + (borderW || 0) || width;
-  var height = height + startY + (borderW || 0) || height;
+  var width = width +  startX + (borderW || 0) - (radius || 0) || width;
+  var height = height + startY + (borderW || 0) - (radius || 0) || height;
   var radius = radius || 0;
   whereToDraw.ctx.lineWidth = borderW || 0;
   whereToDraw.ctx.strokeStyle = borderC || 'transparent';
@@ -85,7 +85,11 @@ function multiLineTxt(whereToDraw, text, textwidth) {
     var wordPrevWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
     var wordWidth = whereToDraw.ctx.measureText(wordsArray[i]).width;
     console.log( "wordPrevWidth + wordWidth = " + wordPrevWidth + wordWidth );
-    if ( (wordPrevWidth + wordWidth) < textwidth) {
+    var tempWidth = linesArray[u] + wordsArray[i] + (wordsArray[i+1] || '') + ' ';
+    console.log( "tempWidth = " + tempWidth );
+    console.log( "tempWidth = " + whereToDraw.ctx.measureText(tempWidth).width );
+
+    if ( whereToDraw.ctx.measureText(tempWidth).width < textwidth) {
 
       linesArray[u] += wordsArray[i] + ' ';
       console.log( "ДОБАВИЛИ " + linesArray[u] );
@@ -111,7 +115,7 @@ function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, star
   var rectHeight = lineHeight * textLines.length;
 
   drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 5, startY - 25, 'rgba(0, 0, 0, 0.7)');
-  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 10, startY - 30, bgColor);
+  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 0, startY - 30, bgColor);
 
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
