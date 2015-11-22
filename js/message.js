@@ -12,6 +12,7 @@
 
 /**
  * Draws a [rounded] rectangle
+ * Example: drawRect(200, 100, 20, 0, 0, 'white', 0);
  * @param {number} width
  * @param {number} height
  * @param {number} [radius] border radius
@@ -49,31 +50,25 @@ function drawRect(whereToDraw, width, height, radius, startX, startY, backC, bor
   whereToDraw.ctx.lineTo((startX || 0), height);
   whereToDraw.ctx.arc(radius + (startX || 0), radius + (startY || 0), radius, 1 * Math.PI, 1.5 * Math.PI, false);
   whereToDraw.ctx.stroke();
-  whereToDraw.ctx.fillStyle = 'rgba(255,255,255,0.8)'
   whereToDraw.ctx.fill();
 }
-//drawRect(120, 50, 5, 30, 30);
-//drawRect(320, 20, 10, 10, 30);
-
-//setTimeout(function () {drawRect(200, 100, 20, 0, 0, 'white', 0);}, 0);
-//setTimeout(function () {drawRect(220, 120, 20, 0, 0, 'white', 0);}, 100);
-//setTimeout(function () {drawRect(240, 140, 20, 0, 0, 'white', 0);}, 200);
-//setTimeout(function () {drawRect(280, 180, 20, 0, 0, 'white', 0);}, 300);
-//setTimeout(function () {drawRect(300, 200, 20, 0, 0, 'white', 0);}, 500);
 
 
-function drawText(whereToDraw, text, startX, startY, txtColor, txtFont) {
-    whereToDraw.ctx.font = txtFont || '44px Arial';
-    whereToDraw.ctx.fillStyle = txtColor || 'black';
-    whereToDraw.ctx.fillText((text || 'Привет!'), (startX || 0), (startY || 0));
+/**
+ * Outputs styled line of text
+ * Example: drawText(this, 'Игра на паузе!', 300, 50, 'black', '16px PT Mono', start);
+ * @param {Object} whereToDraw
+ * @param {string} text
+ * @param {number} [startX]
+ * @param {number} [startY]
+ * @param {string} [txtColor]
+ * @param {string} [txtFont]
+ * @param {string} [txtAlign] 
+ */
+function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign) {
+  whereToDraw.ctx.font = txtFont || '44px Arial';
+  whereToDraw.ctx.textAlign = txtAlign || 'center';
+  whereToDraw.ctx.fillStyle = txtColor || 'black';
+  whereToDraw.ctx.fillText((text || 'Привет!'), (startX || 0), (startY || 0));
+
 }
-
-// drawRect(300, 250, 5, 30, 30);
-// whereToDraw.ctx.font = '44px Arial';
-// whereToDraw.ctx.fillStyle = 'black';
-// whereToDraw.ctx.fillText( 'Привет!', 20, 20);
-
-//drawText('Привет!', 'red', 29, 19);
-
-//document.getElementsByTagName('body')[0].appendChild(canvas);
-//container.insertBefore(canvas, container.firstChild);

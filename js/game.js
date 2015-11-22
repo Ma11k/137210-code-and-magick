@@ -378,25 +378,32 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      var x = WIDTH / 2 - 150;
+      var y = HEIGHT / 2 - 50;
+      var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawRect(this, 200, 180, 20, 280, 40);
-          drawText(this, 'Ура! Я выйграл сникерс!', 300, 80, 'black', '16px PT Mono');
+          drawRect(this, 290, 50, 20, x + 5, y + 5, 'rgba(0, 0, 0, 0.7)');
+          drawRect(this, 300, 50, 20, x, y, 'rgba(111, 255, 61, 0.7)');
+          drawText(this, 'Ура! Я выйграл сникерс!', WIDTH / 2, y + 40, 'black', '16px PT Mono');
           console.log('you have won!');
           break;
         case Verdict.FAIL:
-          drawRect(this, 200, 180, 20, 280, 40);
-          drawText(this, 'Я погиб!', 300, 80, 'black', '16px PT Mono');
+          drawRect(this, 290, 50, 20, x + 5, y + 5, 'rgba(0, 0, 0, 0.7)');
+          drawRect(this, 300, 50, 20, x, y);
+          drawText(this, 'Я погиб!',  WIDTH / 2, y + 40, 'black', '16px PT Mono');
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
-          drawRect(this, 200, 180, 20, 280, 40);
-          drawText(this, 'Игра на паузе!', 300, 80, 'black', '16px PT Mono');
+          drawRect(this, 290, 50, 20, x + 5, y + 5, 'rgba(0, 0, 0, 0.7)');
+          drawRect(this, 300, 50, 20, x, y);
+          drawText(this, 'Игра на паузе!', WIDTH / 2, y + 40, 'black', '16px PT Mono');
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-        drawRect(this, 200, 180, 20, 280, 40);
-        drawText(this, 'Нажми пробел, чтобы начать!', 300, 80, 'black', '16px PT Mono');        
+        drawRect(this, 290, 50, 20, x + 5, y + 5, 'rgba(0, 0, 0, 0.7)');
+        drawRect(this, 300, 50, 20, x, y, 'rgba(255, 255, 255, 0.7)');
+        drawText(this, 'Нажми пробел!', textX, y + 40, 'black', '16px PT Mono');
           console.log('welcome to the game! Press Space to start');
           break;
       }
