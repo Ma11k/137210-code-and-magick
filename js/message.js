@@ -67,7 +67,7 @@ function drawRect(whereToDraw, width, height, radius, startX, startY, bgColor, b
  */
 function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign) {
   whereToDraw.ctx.font = txtFont || '44px Arial';
-  whereToDraw.ctx.textAlign = txtAlign || 'center';
+  whereToDraw.ctx.textAlign = txtAlign || 'start';
   whereToDraw.ctx.fillStyle = txtColor || 'black';
   whereToDraw.ctx.fillText((text || 'Привет!'), (startX || 0), (startY || 0));
 
@@ -75,6 +75,7 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
 
 
 function multiLineTxt(whereToDraw, text, textwidth) {
+  console.log( "textwidth = " + textwidth );
   var wordsArray = text.split(' ')
   //console.log( 'wordsArray = ' + wordsArray );
   var linesArray = [''];
@@ -82,17 +83,15 @@ function multiLineTxt(whereToDraw, text, textwidth) {
   for (var i = 0; i < wordsArray.length; i++) {
     wordsArray[i] = wordsArray[i] + ' ';
     var wordPrevWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
-    console.log( "wordPrevWidth = " + wordPrevWidth );
     var wordWidth = whereToDraw.ctx.measureText(wordsArray[i]).width;
-    console.log( "wordWidth = " + wordWidth );
-
+    console.log( "wordPrevWidth + wordWidth = " + wordPrevWidth + wordWidth );
     if ( (wordPrevWidth + wordWidth) < textwidth) {
+
       linesArray[u] += wordsArray[i] + ' ';
-      console.log( "ДОБАВИЛИ" + linesArray[u] );
+      console.log( "ДОБАВИЛИ " + linesArray[u] );
       //linesArray.push(wordsArray[i]);
     } else {
-      console.log( "НОВАЯ СТРОКА");
-      wordsArray[i] = '\n' + wordsArray[i];
+      console.log( "НОВАЯ СТРОКА ");
       linesArray.push(wordsArray[i]);
       u++;
     }
@@ -104,15 +103,15 @@ function multiLineTxt(whereToDraw, text, textwidth) {
 }
 
 
-function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY, txtColor, bgColor) {
+function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY, txtColor, bgColor, bgRadius) {
 
   var textLines = multiLineTxt(whereToDraw, text, textwidth);
   var startY = startY || 0;
   //Рисуем подложку
   var rectHeight = lineHeight * textLines.length;
 
-  drawRect(whereToDraw, textwidth + 30, rectHeight + 10, 20, startX - (textwidth/2) - 25, startY - 25, 'rgba(0, 0, 0, 0.7)');
-  drawRect(whereToDraw, textwidth + 40, rectHeight + 10, 20, startX - (textwidth/2) - 30, startY - 30, bgColor);
+  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 5, startY - 25, 'rgba(0, 0, 0, 0.7)');
+  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 10, startY - 30, bgColor);
 
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
