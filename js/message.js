@@ -18,11 +18,11 @@
  * @param {number} [radius] border radius
  * @param {number} [startX] left position
  * @param {number} [startY] top position
- * @param {string} [backC] background color
+ * @param {string} [bgColor] background color
  * @param {number} [borderW] border width
  * @param {string} [borderC] border color
  */
-function drawRect(whereToDraw, width, height, radius, startX, startY, backC, borderW, borderC) {
+function drawRect(whereToDraw, width, height, radius, startX, startY, bgColor, borderW, borderC) {
   //whereToDraw.ctx.clearRect(0,0,400,400);
   var borderW = borderW || 0;
   var borderC = borderW ? (borderC || 'transparent') : 'transparent';
@@ -33,7 +33,7 @@ function drawRect(whereToDraw, width, height, radius, startX, startY, backC, bor
   var radius = radius || 0;
   whereToDraw.ctx.lineWidth = borderW || 0;
   whereToDraw.ctx.strokeStyle = borderC || 'transparent';
-  whereToDraw.ctx.fillStyle = backC || '#FFFFFF';
+  whereToDraw.ctx.fillStyle = bgColor || '#FFFFFF';
   whereToDraw.ctx.beginPath();
 
 //слева направо
@@ -104,7 +104,7 @@ function multiLineTxt(whereToDraw, text, textwidth) {
 }
 
 
-function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY) {
+function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY, txtColor, bgColor) {
 
   var textLines = multiLineTxt(whereToDraw, text, textwidth);
   var startY = startY || 0;
@@ -112,11 +112,11 @@ function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, star
   var rectHeight = lineHeight * textLines.length;
 
   drawRect(whereToDraw, textwidth + 30, rectHeight + 10, 20, startX - (textwidth/2) - 25, startY - 25, 'rgba(0, 0, 0, 0.7)');
-  drawRect(whereToDraw, textwidth + 40, rectHeight + 10, 20, startX - (textwidth/2) - 30, startY - 30, 'rgba(255, 255, 255, 0.7)');
+  drawRect(whereToDraw, textwidth + 40, rectHeight + 10, 20, startX - (textwidth/2) - 30, startY - 30, bgColor);
 
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
-      drawText(whereToDraw, textLines[i], startX, startY, 'red', '14px Arial');
+      drawText(whereToDraw, textLines[i], startX, startY, txtColor, '14px Arial');
       startY = startY + lineHeight;
   }
 
