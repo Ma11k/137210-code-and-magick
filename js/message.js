@@ -25,7 +25,7 @@
 function drawRect(whereToDraw, width, height, radius, startX, startY, backC, borderW, borderC) {
   //whereToDraw.ctx.clearRect(0,0,400,400);
   var borderW = borderW || 0;
-  var borderC = borderW ? (borderC || "transparent") : "transparent";
+  var borderC = borderW ? (borderC || 'transparent') : 'transparent';
   var startX = startX + borderW || 0;
   var startY = startY + borderW || 0;
   var width = width +  startX + (borderW || 0) || width;
@@ -63,12 +63,42 @@ function drawRect(whereToDraw, width, height, radius, startX, startY, backC, bor
  * @param {number} [startY]
  * @param {string} [txtColor]
  * @param {string} [txtFont]
- * @param {string} [txtAlign] 
+ * @param {string} [txtAlign]
  */
 function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign) {
   whereToDraw.ctx.font = txtFont || '44px Arial';
   whereToDraw.ctx.textAlign = txtAlign || 'center';
   whereToDraw.ctx.fillStyle = txtColor || 'black';
   whereToDraw.ctx.fillText((text || 'Привет!'), (startX || 0), (startY || 0));
+
+}
+
+
+function multiLineTxt(whereToDraw, text, textwidth, lineHeight) {
+  var wordsArray = text.split(' ')
+  //console.log( 'wordsArray = ' + wordsArray );
+  var linesArray = [''];
+  var u = 0;
+  for (var i = 0; i < wordsArray.length; i++) {
+    wordsArray[i] = wordsArray[i] + ' ';
+    var wordPrevWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
+    console.log( "wordPrevWidth = " + wordPrevWidth );
+    var wordWidth = whereToDraw.ctx.measureText(wordsArray[i]).width;
+    console.log( "wordWidth = " + wordWidth );
+
+    if ( (wordPrevWidth + wordWidth) < textwidth) {
+      linesArray[u] += wordsArray[i] + ' ';
+      console.log( "ДОБАВИЛИ" + linesArray[u] );
+      //linesArray.push(wordsArray[i]);
+    } else {
+      console.log( "НОВАЯ СТРОКА");
+      wordsArray[i] = '\n' + wordsArray[i];
+      linesArray.push(wordsArray[i]);
+      u++;
+    }
+    console.log( 'linesArray[' + i + '] = ' + linesArray[0] );
+  }
+  console.log( 'linesArray = ' + linesArray );
+  document.write(linesArray);
 
 }

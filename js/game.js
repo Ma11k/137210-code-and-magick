@@ -403,6 +403,7 @@
         case Verdict.INTRO:
         drawRect(this, 290, 50, 20, x + 5, y + 5, 'rgba(0, 0, 0, 0.7)');
         drawRect(this, 300, 50, 20, x, y, 'rgba(255, 255, 255, 0.7)');
+        multiLineTxt(this, 'Нажми пробел для начала игры! Если не нажмешь, то не поиграешь, дружок! Давай-давай!', 100, 20);
         drawText(this, 'Нажми пробел!', textX, y + 40, 'black', '16px PT Mono');
           console.log('welcome to the game! Press Space to start');
           break;
