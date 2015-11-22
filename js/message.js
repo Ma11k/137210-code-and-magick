@@ -74,7 +74,7 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
 }
 
 
-function multiLineTxt(whereToDraw, text, textwidth, lineHeight) {
+function multiLineTxt(whereToDraw, text, textwidth) {
   var wordsArray = text.split(' ')
   //console.log( 'wordsArray = ' + wordsArray );
   var linesArray = [''];
@@ -98,7 +98,20 @@ function multiLineTxt(whereToDraw, text, textwidth, lineHeight) {
     }
     console.log( 'linesArray[' + i + '] = ' + linesArray[0] );
   }
-  console.log( 'linesArray = ' + linesArray );
-  document.write(linesArray);
+  return linesArray;
+
+
+}
+
+
+function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, startY) {
+
+  var textLines = multiLineTxt(whereToDraw, text, textwidth);
+  var startY = startY || 0;
+  for (var i = 0; i < textLines.length; i++) {
+      drawText(whereToDraw, textLines[i], startX, startY, 'red', '14px Arial');
+      startY = startY + lineHeight;
+  }
+
 
 }
