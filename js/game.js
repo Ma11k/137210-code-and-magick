@@ -381,17 +381,22 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           drawRect(this, 200, 180, 20, 280, 40);
-          drawText(this, 'Ура! Я выйграл!', 300, 80, 'black', '16px PT Mono');
-          // this.ctx.fillText( 'Ура! Я выиграл!' ,300, 20);
+          drawText(this, 'Ура! Я выйграл сникерс!', 300, 80, 'black', '16px PT Mono');
           console.log('you have won!');
           break;
         case Verdict.FAIL:
+          drawRect(this, 200, 180, 20, 280, 40);
+          drawText(this, 'Я погиб!', 300, 80, 'black', '16px PT Mono');
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
+          drawRect(this, 200, 180, 20, 280, 40);
+          drawText(this, 'Игра на паузе!', 300, 80, 'black', '16px PT Mono');
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
+        drawRect(this, 200, 180, 20, 280, 40);
+        drawText(this, 'Нажми пробел, чтобы начать!', 300, 80, 'black', '16px PT Mono');        
           console.log('welcome to the game! Press Space to start');
           break;
       }
