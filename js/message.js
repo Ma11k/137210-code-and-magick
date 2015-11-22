@@ -79,17 +79,27 @@ function multiLineTxt(whereToDraw, text, textwidth) {
   var wordsArray = text.split(' ')
   //console.log( 'wordsArray = ' + wordsArray );
   var linesArray = [''];
+  whereToDraw.ctx.font = '14px Arial';
   var u = 0;
   for (var i = 0; i < wordsArray.length; i++) {
     wordsArray[i] = wordsArray[i] + ' ';
-    var wordPrevWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
-    var wordWidth = whereToDraw.ctx.measureText(wordsArray[i]).width;
-    console.log( "wordPrevWidth + wordWidth = " + wordPrevWidth + wordWidth );
-    var tempWidth = linesArray[u] + wordsArray[i] + (wordsArray[i+1] || '') + ' ';
-    console.log( "tempWidth = " + tempWidth );
-    console.log( "tempWidth = " + whereToDraw.ctx.measureText(tempWidth).width );
+    //var prevWordWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
+    var prevWordWidth = whereToDraw.ctx.measureText(linesArray[u]).width;
+    console.log( "wordsArray[i] = " + wordsArray[i] );
+    var tempnewtxt = wordsArray[i];
+    var newWordWidth = whereToDraw.ctx.measureText(tempnewtxt).width;
 
-    if ( whereToDraw.ctx.measureText(tempWidth).width < textwidth) {
+    console.log( "prevWordWidth = " + prevWordWidth );
+    console.log( "newWordWidth = " + newWordWidth );
+    console.log( "prevWordWidth + newWordWidth = " + (prevWordWidth + newWordWidth) );
+    if (wordsArray[i+1] !== "undefined"){
+      var tempWidth = prevWordWidth + newWordWidth // + whereToDraw.ctx.measureText((wordsArray[i+1] + ' ')).width;
+    } else {
+      var tempWidth = newWordWidth;
+    }
+    console.log( "tempWidth = " + tempWidth );
+
+    if ( tempWidth < textwidth) {
 
       linesArray[u] += wordsArray[i] + ' ';
       console.log( "ДОБАВИЛИ " + linesArray[u] );
@@ -99,7 +109,7 @@ function multiLineTxt(whereToDraw, text, textwidth) {
       linesArray.push(wordsArray[i]);
       u++;
     }
-    console.log( 'linesArray[' + i + '] = ' + linesArray[0] );
+    console.log( 'linesArray[' + u + '] = ' + linesArray[u] );
   }
   return linesArray;
 
@@ -114,8 +124,8 @@ function drawMultiLineTxt(whereToDraw, text, textwidth, lineHeight, startX, star
   //Рисуем подложку
   var rectHeight = lineHeight * textLines.length;
 
-  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 5, startY - 25, 'rgba(0, 0, 0, 0.7)');
-  drawRect(whereToDraw, textwidth + 0, rectHeight + 20, (bgRadius || 20), startX - 0, startY - 30, bgColor);
+  drawRect(whereToDraw, textwidth + 10, rectHeight + 30, (bgRadius || 20), startX - 10, startY - 25, 'rgba(0, 0, 0, 0.7)');
+  drawRect(whereToDraw, textwidth + 20, rectHeight + 30, (bgRadius || 20), startX - 15, startY - 30, bgColor);
 
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
