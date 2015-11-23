@@ -22,8 +22,8 @@ function pluralizeRussian(numbers, rusWords) {
 
 /**
  * Outputs mage's message
- * @param {boolean|number|Objects} a
- * @param {boolean|number|Object} [b]
+ * @param {boolean|number|Object} a
+ * @param {boolean|number|Object} b
  * @returns {string}
  */
 function getMessage(a, b) {
