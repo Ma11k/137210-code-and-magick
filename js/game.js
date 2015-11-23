@@ -383,7 +383,7 @@
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawMultiLineTxt(this, 'Уря! Я выйграл!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono','rgba(36, 255, 0, 0.81)', 20);
+          drawMultiLineTxt(this, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, 20, textX, y + 40, '#FFFFFF', '14px PT Mono','rgba(36, 255, 0, 0.81)', 20);
           console.log('you have won!');
           break;
         case Verdict.FAIL:
@@ -395,7 +395,7 @@
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-        drawMultiLineTxt(this, 'Нажми пробел для начала игры! Если не нажмешь, то не поиграешь, дружок! Давай-давай!', 120, 20, textX, y + 20, '#0038ff', '14px PT Mono', 'rgba(248, 255, 164, 0.81)', 10);
+        drawMultiLineTxt(this, 'Вообще должен насторожить хотябы факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, 20, textX, y, '#0038ff', '14px PT Mono', 'rgba(255, 233, 116, 1)', 10);
           console.log('welcome to the game! Press Space to start');
           break;
       }

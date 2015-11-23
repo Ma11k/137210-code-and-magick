@@ -13,14 +13,14 @@
 /**
  * Draws a [rounded] rectangle
  * Example: drawRect(200, 100, 20, 0, 0, 'white', 0);
- * @param {number} width
- * @param {number} height
- * @param {number} [radius] border radius
- * @param {number} [startX] left position
- * @param {number} [startY] top position
- * @param {string} [bgColor] background color
- * @param {number} [borderW] border width
- * @param {string} [borderC] border color
+ * @param {=number} width
+ * @param {=number} height
+ * @param {?number} radius border radius
+ * @param {?number} startX left position
+ * @param {?number} startY top position
+ * @param {?string} bgColor background color
+ * @param {?number} borderW border width
+ * @param {?string} borderC border color
  */
 function drawRect(whereToDraw, width, height, radius, startX, startY, bgColor, borderW, borderC) {
   //whereToDraw.ctx.clearRect(0,0,400,400);
@@ -77,39 +77,19 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
 function multiLineTxt(whereToDraw, text, textwidth, txtFont) {
   console.log( "textwidth = " + textwidth );
   var wordsArray = text.split(' ')
-  //console.log( 'wordsArray = ' + wordsArray );
+  console.log( 'wordsArray = ' + wordsArray );
   var linesArray = [''];
   whereToDraw.ctx.font = txtFont;
   var u = 0;
   for (var i = 0; i < wordsArray.length; i++) {
-    wordsArray[i] = wordsArray[i] + ' ';
-    //var prevWordWidth = linesArray[u] ? whereToDraw.ctx.measureText(linesArray[u]).width : 0;
     var prevWordWidth = whereToDraw.ctx.measureText(linesArray[u]).width;
-    console.log( "wordsArray[i] = " + wordsArray[i] );
-    var tempnewtxt = wordsArray[i];
-    var newWordWidth = whereToDraw.ctx.measureText(tempnewtxt).width;
-
-    console.log( "prevWordWidth = " + prevWordWidth );
-    console.log( "newWordWidth = " + newWordWidth );
-    console.log( "prevWordWidth + newWordWidth = " + (prevWordWidth + newWordWidth) );
-    if (wordsArray[i+1] !== "undefined"){
-      var tempWidth = prevWordWidth + newWordWidth // + whereToDraw.ctx.measureText((wordsArray[i+1] + ' ')).width;
-    } else {
-      var tempWidth = newWordWidth;
-    }
-    console.log( "tempWidth = " + tempWidth );
-
-    if ( tempWidth < textwidth) {
-
+    var newWordWidth = whereToDraw.ctx.measureText(wordsArray[i] + ' ').width;
+    if ( prevWordWidth + newWordWidth < textwidth) {
       linesArray[u] += wordsArray[i] + ' ';
-      console.log( "ДОБАВИЛИ " + linesArray[u] );
-      //linesArray.push(wordsArray[i]);
     } else {
-      console.log( "НОВАЯ СТРОКА ");
-      linesArray.push(wordsArray[i]);
+      linesArray.push((wordsArray[i]+ ' '));
       u++;
     }
-    console.log( 'linesArray[' + u + '] = ' + linesArray[u] );
   }
   return linesArray;
 
