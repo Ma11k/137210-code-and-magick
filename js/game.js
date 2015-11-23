@@ -383,19 +383,20 @@
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawMultiLineTxt(this, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, 20, textX, y + 40, '#FFFFFF', '14px PT Mono','rgba(36, 255, 0, 0.81)', 20);
+          drawMultiLineTxt(this, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
           console.log('you have won!');
           break;
         case Verdict.FAIL:
-          drawMultiLineTxt(this, 'Я погиб, да что ж за фигня опять!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono', 'rgba(255, 0, 0, 0.81)');
+          drawMultiLineTxt(this, 'Я погиб, да что ж за фигня опять!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
-          drawMultiLineTxt(this, 'Игра на паузе!', 110, 20, textX, y + 40, '#FFFFFF', '14px PT Mono', 'rgb(251, 255, 252)');
+          drawMultiLineTxt(this, 'Игра на паузе!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-        drawMultiLineTxt(this, 'Вообще должен насторожить хотябы факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, 20, textX, y, '#0038ff', '14px PT Mono', 'rgba(255, 233, 116, 1)', 10);
+          drawMultiLineTxt(this, 'Очень много текста и факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
+          //drawMultiLineTxt(this, 'Минимум аргументов!', 200, '14px PT Mono', '#0038ff', textX, y + 40);
           console.log('welcome to the game! Press Space to start');
           break;
       }
