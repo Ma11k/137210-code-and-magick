@@ -1,6 +1,121 @@
 'use strict';
 
-/*global drawMultiLineTxt */
+/**
+ * Draws a [rounded] rectangle
+ * Example: drawRect(200, 100, 0, 0, 20, 'white', 10, 'red');
+ * @param {=number} width
+ * @param {=number} height
+ * @param {number} x left position
+ * @param {number} y top position
+ * @param {?number} radius border radius
+ * @param {?string} bgColor background color
+ * @param {?number} borderW border width
+ * @param {?string} borderC border color
+ */
+function drawRect(ctx, width, height, x, y, radius, bgColor, borderW, borderC) {
+  borderW = borderW || 0;
+  radius = radius || 0;
+  borderC = borderW ? (borderC || 'transparent') : 'transparent';
+  x = x + borderW;
+  y = y + borderW;
+  width = width + x + borderW - radius;
+  height = height + y + borderW - radius;
+  ctx.lineWidth = borderW;
+  ctx.strokeStyle = borderC || 'transparent';
+  ctx.fillStyle = bgColor || '#FFFFFF';
+  ctx.beginPath();
+  //слева направо
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(width, y);
+  ctx.arc(width, radius + y, radius, 1.5 * Math.PI, 0 * Math.PI, false);
+  //сверху вниз
+  ctx.lineTo(width + radius, height);
+  ctx.arc(width, height, radius, 0 * Math.PI, 0.5 * Math.PI, false);
+  //справа налево
+  ctx.lineTo(x + radius, height + radius);
+  ctx.arc(radius + x, height, radius, 0.5 * Math.PI, 1 * Math.PI, false);
+  //снизу вверх
+  ctx.lineTo(x, height);
+  ctx.arc(radius + x, radius + y, radius, 1 * Math.PI, 1.5 * Math.PI, false);
+  ctx.stroke();
+  ctx.fill();
+}
+
+/**
+ * Outputs styled line of text
+ * Example: drawText(this, 'Игра на паузе!', 300, 50, 'black', '16px PT Mono', 'center');
+ * @param {Object} ctx
+ * @param {string} text
+ * @param {?number} x
+ * @param {?number} y
+ * @param {?string} txtColor
+ * @param {?string} txtFont
+ * @param {?string} txtAlign
+ */
+function drawText(ctx, text, x, y, txtColor, txtFont, txtAlign) {
+  ctx.font = txtFont || '44px Arial';
+  ctx.textAlign = txtAlign || 'start';
+  ctx.fillStyle = txtColor || 'black';
+  ctx.fillText((text || 'Привет!'), x, y);
+}
+
+/**
+ * Breaks string to lines
+ * Example: multiLineTxt(this, 'Many many words in line', 220, '16px Arial');
+ * @param {Object} ctx
+ * @param {string} text
+ * @param {number} textWidth
+ * @param {string} txtFont
+ * @return {Array}
+ */
+function multiLineTxt(ctx, text, textWidth, txtFont) {
+  var wordsArray = text.split(' ');
+  var linesArray = [];
+  ctx.font = txtFont;
+  var u = 0;
+  for (var i = 0; i < wordsArray.length; i++) {
+    var prevPlusNewWidth = ctx.measureText(linesArray[u] + wordsArray[i]).width;
+    if (prevPlusNewWidth < textWidth) {
+      linesArray[u] = linesArray[u] ? linesArray[u] : '';
+      linesArray[u] += wordsArray[i] + ' ';
+    } else {
+      linesArray.push(wordsArray[i] + ' ');
+      u++;
+    }
+  }
+  return linesArray;
+}
+
+/**
+ * Draws multi lines of text on a rectangle with shadow
+ * Example: drawMultiLineTxt(this, 'Many many words', 320, 20, 0, 0, 'black', '14px Arial', 'white', 20);
+ * @param {Object} ctx
+ * @param {string} text
+ * @param {number} textWidth
+ * @param {string} txtFont
+ * @param {?number} x
+ * @param {?number} y
+ * @param {?string} txtColor
+ * @param {?string} bgColor
+ * @param {?number} bgRadius
+ */
+function drawMultiLineTxt(ctx, text, textWidth, txtFont, txtColor, x, y, bgColor, bgRadius) {
+  var textLines = multiLineTxt(ctx, text, textWidth, txtFont);
+  x = x || 0;
+  y = y || 0;
+  var lineHeight = Math.round(parseInt(txtFont.split(' ')[0], 10) * 1.4);
+  //Рисуем подложку
+  var rectHeight = lineHeight * textLines.length;
+  drawRect(ctx, textWidth + 10, rectHeight + 30, x - 10, y - 25, (bgRadius || 0), 'rgba(0, 0, 0, 0.7)');
+  drawRect(ctx, textWidth + 20, rectHeight + 30, x - 15, y - 30, (bgRadius || 0), bgColor);
+  //Рисуем текст
+  for (var i = 0; i < textLines.length; i++) {
+    drawText(ctx, textLines[i], x, y, txtColor, txtFont);
+    y = y + lineHeight;
+  }
+}
+
+
 
 (function() {
   /**
@@ -384,21 +499,20 @@
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawMultiLineTxt(this, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
+          drawMultiLineTxt(this.ctx, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
           console.log('you have won!');
           break;
         case Verdict.FAIL:
-          drawMultiLineTxt(this, 'Я погиб, да что ж за фигня опять!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
+          drawMultiLineTxt(this.ctx, 'Я погиб, да что ж за фигня опять!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
-          drawMultiLineTxt(this, 'Игра на паузе!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
+          drawMultiLineTxt(this.ctx, 'Игра на паузе!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-          drawMultiLineTxt(this, 'Очень много текста и факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
+          drawMultiLineTxt(this.ctx, 'Очень много текста и факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
           //drawMultiLineTxt(this, 'Минимум аргументов!', 200, '14px PT Mono', '#0038ff', textX, y + 40);
-          console.log('welcome to the game! Press Space to start');
           break;
       }
     },
