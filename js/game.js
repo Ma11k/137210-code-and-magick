@@ -76,7 +76,7 @@ function multiLineTxt(ctx, text, textWidth, txtFont) {
   for (var i = 0; i < wordsArray.length; i++) {
     var prevPlusNewWidth = ctx.measureText(linesArray[u] + wordsArray[i]).width;
     if (prevPlusNewWidth < textWidth) {
-      linesArray[u] = linesArray[u] ? linesArray[u] : '';
+      linesArray[u] = linesArray[u] || '';
       linesArray[u] += wordsArray[i] + ' ';
     } else {
       linesArray.push(wordsArray[i] + ' ');
@@ -500,19 +500,16 @@ function drawMultiLineTxt(ctx, text, textWidth, txtFont, txtColor, x, y, bgColor
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           drawMultiLineTxt(this.ctx, 'Уря! Я выйграл! Что очевидным образом нарушает инвариантность временных трансляций.', 210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
-          console.log('you have won!');
           break;
         case Verdict.FAIL:
           drawMultiLineTxt(this.ctx, 'Я погиб, да что ж за фигня опять!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
-          console.log('you have failed!');
           break;
         case Verdict.PAUSE:
           drawMultiLineTxt(this.ctx, 'Игра на паузе!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
-          console.log('game is on pause!');
           break;
         case Verdict.INTRO:
           drawMultiLineTxt(this.ctx, 'Очень много текста и факт что в ОТО «сохранение энергии» зависит от выбранного фрейма, но поскольку не существует «единственно верного фрейма» — понятие «сохранения энергии» также размыто. Кроме того открытым остается вопрос о геометрии пространства-времени, т.е. является ли вселенная строго плоской.', 320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
-          //drawMultiLineTxt(this, 'Минимум аргументов!', 200, '14px PT Mono', '#0038ff', textX, y + 40);
+          //drawMultiLineTxt(this.ctx, 'Минимум аргументов!', 200, '14px PT Mono', '#0038ff', textX, y + 40);
           break;
       }
     },
