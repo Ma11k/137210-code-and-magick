@@ -1,5 +1,7 @@
 'use strict';
 
+/*global drawMultiLineTxt*/
+
 (function() {
   /**
    * @const
@@ -378,7 +380,6 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      var x = WIDTH / 2 - 150;
       var y = HEIGHT / 2 - 50;
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {

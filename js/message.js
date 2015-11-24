@@ -1,14 +1,4 @@
-// var canvas = document.createElement('canvas');
-// canvas.width = 400;
-// canvas.height = 400;
-// canvas.id = 'magesays';
-// canvas.style.position = 'absolute';
-// canvas.style.zIndex = 100;
-// var container = document.getElementsByTagName('header')[0];
-// var ctx = canvas.getContext('2d');
-// //whereToDraw.ctx.strokeRect(0, 0, 100, 100);
-
-
+'use strict';
 
 /**
  * Draws a [rounded] rectangle
@@ -23,20 +13,20 @@
  * @param {?string} borderC border color
  */
 function drawRect(whereToDraw, width, height, radius, startX, startY, bgColor, borderW, borderC) {
-  var borderW = borderW || 0;
-  var borderC = borderW ? (borderC || 'transparent') : 'transparent';
-  var startX = startX + borderW || 0;
-  var startY = startY + borderW || 0;
-  var width = width +  startX + (borderW || 0) - (radius || 0) || width;
-  var height = height + startY + (borderW || 0) - (radius || 0) || height;
+  borderW = borderW || 0;
+  borderC = borderW ? (borderC || 'transparent') : 'transparent';
+  startX = startX + borderW || 0;
+  startY = startY + borderW || 0;
+  width = width + startX + (borderW || 0) - (radius || 0) || width;
+  height = height + startY + (borderW || 0) - (radius || 0) || height;
   console.log( 'radius = ' + radius );
-  var radius = radius || 0;
+  radius = radius || 0;
   whereToDraw.ctx.lineWidth = borderW || 0;
   whereToDraw.ctx.strokeStyle = borderC || 'transparent';
   whereToDraw.ctx.fillStyle = bgColor || '#FFFFFF';
   whereToDraw.ctx.beginPath();
   //слева направо
-  whereToDraw.ctx.moveTo(startX + radius,  startY || 0);
+  whereToDraw.ctx.moveTo(startX + radius, startY || 0);
   whereToDraw.ctx.lineTo(width, startY || 0);
   whereToDraw.ctx.arc(width, radius + (startY || 0), radius, 1.5 * Math.PI, 0 * Math.PI, false);
   //сверху вниз
@@ -67,7 +57,6 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
   whereToDraw.ctx.font = txtFont || '44px Arial';
   whereToDraw.ctx.textAlign = txtAlign || 'start';
   whereToDraw.ctx.fillStyle = txtColor || 'black';
-  console.log( 'text = ' + text );
   whereToDraw.ctx.fillText((text || 'Привет!'), (startX || 0), (startY || 0));
 }
 
@@ -86,14 +75,13 @@ function multiLineTxt(whereToDraw, text, textWidth, txtFont) {
   whereToDraw.ctx.font = txtFont;
   var u = 0;
   for (var i = 0; i < wordsArray.length; i++) {
-    var prevWordWidth = whereToDraw.ctx.measureText(linesArray[u]).width;
-    var newWordWidth = whereToDraw.ctx.measureText(wordsArray[i] + ' ').width;
-    if ( prevWordWidth + newWordWidth < textWidth) {
+    var prevWordWidth = whereToDraw.ctx.measureText(linesArray[u]).width; //померить сразу два слова
+    var newWordWidth = whereToDraw.ctx.measureText(wordsArray[i]).width;
+    if (prevWordWidth + newWordWidth < textWidth) {
       linesArray[u] = linesArray[u] ? linesArray[u] : '';
       linesArray[u] += wordsArray[i] + ' ';
     } else {
-      linesArray.push((wordsArray[i]+ ' '));
-      console.log( 'linesArray = ' + linesArray[0] );
+      linesArray.push(wordsArray[i] + ' ');
       u++;
     }
   }
@@ -115,10 +103,9 @@ function multiLineTxt(whereToDraw, text, textWidth, txtFont) {
  */
 function drawMultiLineTxt(whereToDraw, text, textWidth, txtFont, txtColor, startX, startY, bgColor, bgRadius) {
   var textLines = multiLineTxt(whereToDraw, text, textWidth, txtFont);
-  var startX = startX || 0;
-  var startY = startY || 0;
+  startX = startX || 0;
+  startY = startY || 0;
   var lineHeight = parseInt(txtFont.split(' ')[0]) + 6;
-  console.log( "lineHeight = " + lineHeight );
   //Рисуем подложку
   var rectHeight = lineHeight * textLines.length;
   drawRect(whereToDraw, textWidth + 10, rectHeight + 30, (bgRadius || 0), startX - 10, startY - 25, 'rgba(0, 0, 0, 0.7)');
