@@ -1,5 +1,7 @@
 'use strict';
 
+/*global drawMultiLineTxt */
+
 /**
  * Draws a [rounded] rectangle
  * Example: drawRect(200, 100, 20, 0, 0, 'white', 0);
@@ -70,7 +72,7 @@ function drawText(whereToDraw, text, startX, startY, txtColor, txtFont, txtAlign
  * @return {Array}
  */
 function multiLineTxt(whereToDraw, text, textWidth, txtFont) {
-  var wordsArray = text.split(' ')
+  var wordsArray = text.split(' ');
   var linesArray = [];
   whereToDraw.ctx.font = txtFont;
   var u = 0;
@@ -105,15 +107,14 @@ function drawMultiLineTxt(whereToDraw, text, textWidth, txtFont, txtColor, start
   var textLines = multiLineTxt(whereToDraw, text, textWidth, txtFont);
   startX = startX || 0;
   startY = startY || 0;
-  var lineHeight = parseInt(txtFont.split(' ')[0]) + 6;
+  var lineHeight = Math.round(parseInt(txtFont.split(' ')[0], 10) * 1.4);
   //Рисуем подложку
   var rectHeight = lineHeight * textLines.length;
   drawRect(whereToDraw, textWidth + 10, rectHeight + 30, (bgRadius || 0), startX - 10, startY - 25, 'rgba(0, 0, 0, 0.7)');
   drawRect(whereToDraw, textWidth + 20, rectHeight + 30, (bgRadius || 0), startX - 15, startY - 30, bgColor);
   //Рисуем текст
   for (var i = 0; i < textLines.length; i++) {
-      drawText(whereToDraw, textLines[i], startX, startY, txtColor, txtFont);
-      //startY = startY + lineHeight[0];
-      startY = startY + lineHeight;
+    drawText(whereToDraw, textLines[i], startX, startY, txtColor, txtFont);
+    startY = startY + lineHeight;
   }
 }
