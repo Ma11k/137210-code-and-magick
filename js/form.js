@@ -15,3 +15,24 @@
     formContainer.classList.add('invisible');
   };
 })();
+
+
+//Форма и поля ввода
+var formElement = document.forms['review-form'];
+var formMark = formElement['review-form-group-mark"'];
+var formName = formElement['review-name'];
+var formText = formElement['review-text'];
+var formSubmit = formElement['review-submit'];
+var formHint = formElement['review-fields'];
+
+function validation() {
+
+formName.onchange = function(){
+  alert('1111');
+}
+formText.onchange = function(){
+  alert('4544');
+}
+
+}
+validation();
