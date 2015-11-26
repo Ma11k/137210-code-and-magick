@@ -3,7 +3,7 @@
 /**
  * Draws a [rounded] rectangle
  * Example: drawRect(200, 100, 0, 0, 20, 'white', 10, 'red');
- * @param {Object} CanvasRenderingContext2D
+ * @param {CanvasRenderingContext2D} ctx
  * @param {number=} width
  * @param {number=} height
  * @param {number} x left position
@@ -45,7 +45,7 @@ function drawRect(ctx, width, height, x, y, radius, bgColor, borderW, borderC) {
 /**
  * Outputs styled line of text
  * Example: drawText(this, 'Игра на паузе!', 300, 50, 'black', '16px PT Mono', 'center');
- * @param {Object} CanvasRenderingContext2D
+ * @param {CanvasRenderingContext2D} ctx
  * @param {string} text
  * @param {number?} x
  * @param {number?} y
@@ -57,13 +57,13 @@ function drawText(ctx, text, x, y, txtColor, txtFont, txtAlign) {
   ctx.font = txtFont || '44px Arial';
   ctx.textAlign = txtAlign || 'start';
   ctx.fillStyle = txtColor || 'black';
-  ctx.fillText((text || 'Привет!'), x, y);
+  ctx.fillText(text, x, y);
 }
 
 /**
  * Breaks string to lines
  * Example: multiLineTxt(this, 'Many many words in line', 220, '16px Arial');
- * @param {Object} CanvasRenderingContext2D
+ * @param {CanvasRenderingContext2D} ctx
  * @param {string} text
  * @param {number} textWidth
  * @param {string} txtFont
@@ -90,7 +90,7 @@ function multiLineTxt(ctx, text, textWidth, txtFont) {
 /**
  * Draws multi lines of text on a rectangle with shadow
  * Example: drawMultiLineTxt(this, 'Many many words', 320, 20, 0, 0, 'black', '14px Arial', 'white', 20);
- * @param {Object} CanvasRenderingContext2D
+ * @param {CanvasRenderingContext2D} ctx
  * @param {string} text
  * @param {number} textWidth
  * @param {string} txtFont
@@ -500,16 +500,25 @@ function drawMultiLineTxt(ctx, text, textWidth, txtFont, txtColor, x, y, bgColor
       var textX = WIDTH / 2 + 10;
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          drawMultiLineTxt(this.ctx, 'Уря! Я выйграл!', 210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
+          drawMultiLineTxt(this.ctx, 'Уря! Я выйграл! Нажми пробел. Вообще, ' +
+          'должен насторожить хотябы факт что в ОТО «сохранение энергии»',
+          210, '14px PT Mono', '#fff500', textX, y + 40, 'rgba(36, 255, 0, 0.81)', 20);
           break;
         case Verdict.FAIL:
-          drawMultiLineTxt(this.ctx, 'Я погиб, да что ж за фигня опять!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
+          drawMultiLineTxt(this.ctx, 'Я погиб, да что ж за фигня опять!',
+          110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgba(255, 0, 0, 0.81)');
           break;
         case Verdict.PAUSE:
-          drawMultiLineTxt(this.ctx, 'Игра на паузе!', 110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
+          drawMultiLineTxt(this.ctx, 'Игра на паузе!',
+          110, '14px PT Mono', '#0038ff', textX, y + 40, 'rgb(251, 255, 252)');
           break;
         case Verdict.INTRO:
-          drawMultiLineTxt(this.ctx, 'Нажми пробел.', 320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
+          drawMultiLineTxt(this.ctx, 'Нажми пробел. Вообще, должен насторожить' +
+          ' хотябы факт что в ОТО «сохранение энергии» зависит от выбранного ' +
+          'фрейма, но поскольку не существует «единственно верного фрейма» — ' +
+          'понятие «сохранения энергии» также размыто. Кроме того открытым ' +
+          'остается вопрос о геометрии пространства-времени.',
+          320, '14px PT Mono', '#0038ff', textX, y, 'rgba(255, 233, 116, 1)', 0);
           break;
       }
     },
