@@ -30,12 +30,12 @@ var markOK = false;
 var textOK = false;
 
 function submitEnabled() {
-  if (nameOK == true) {
-    console.log('markOK = ', typeof markOK);
-    console.log('nameOK = ', typeof nameOK);
-    console.log('textOK = ', typeof textOK);
+  console.log('markOK ! = ', markOK);
+  console.log('nameOK ! = ', nameOK);
+  if (markOK && nameOK) {
     formSubmit.disabled = false;
   } else {
+    console.log(' фигня ');
     formSubmit.disabled = true;
   }
 }
@@ -74,12 +74,11 @@ function checkName() {
   formMark.onchange = function(){
     markOK = checkRadio();
     console.log('markOK = ', markOK);
+    submitEnabled();
   }
 
   formName.onchange = function(){
-    var nameOK = checkName();
-    console.log('nameOK = ', nameOK);
-    console.log('markOK = ', markOK);
+    nameOK = checkName();
     submitEnabled();
   }
 })();
