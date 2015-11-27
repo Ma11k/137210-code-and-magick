@@ -25,11 +25,15 @@ var formText = formElement.querySelector('.review-form-field-text');
 var formSubmit = formElement.querySelector('.review-submit');
 var formHint = formElement.querySelector('.review-fields');
 
+var MINUMUM = 3;
 var nameOK = false;
 var markOK = false;
 var textOK = false;
 
 function submitEnabled() {
+  checkText();
+  checkMark();
+  checkName();
   console.log('markOK ! = ', markOK);
   console.log('nameOK ! = ', nameOK);
   console.log('textOK ! = ', textOK);
@@ -43,53 +47,64 @@ function submitEnabled() {
 
 function checkMark() {
   var arr = formMark.querySelectorAll('input');
-  console.log('textOK в марке = ', checkText());
+  console.log('textOK в марке = ', textOK);
   for (var i = 0; i < arr.length; i++) {
-    if ((arr[i].checked && i > 1) || checkText()) {
-      return true;
+    if ((arr[i].checked && i > 1) || textOK) {
+      //return true;
+      markOK = true;
+      break;
+      console.log('markO = ', markOK);
+    } else {
+      markOK = false;
+      console.log('mark1 = ', markOK);
     }
   }
-  return false;
+  //return false;
+
 }
 
 function checkName() {
-  console.log('formName.value = ', formName.value);
-  if (formName.value.length > 2) {
-    return true;
+  if (formName.value.length >= MINUMUM) {
+    //return true;
+    nameOK = true
+  } else {
+    nameOK = false;
   }
-  return false;
+  //return false;
 }
 
 function checkText() {
-  if (formText.value.length > 2) {
-    return true;
-    console.log('true = ');
+  if (formText.value.length >= MINUMUM) {
+    //return true;
+    textOK = true;
+  } else {
+    textOK = false;
   }
-  return false;
+  //return false;
 }
 
 (function validation() {
-
-  markOK = checkMark();
-  nameOK = checkName();
-  textOK = checkText();
+  // markOK = checkMark();
+  // nameOK = checkName();
+  // textOK = checkText();
   submitEnabled();
 
-
   formText.oninput = function(){
-    textOK = checkText();
+    //textOK = checkText();
+    //checkText();
     console.log('textOK = ', textOK);
     submitEnabled();
   }
 
   formMark.onchange = function(){
-    markOK = checkMark();
+    //markOK = checkMark();
+    //checkMark();
     console.log('markOK = ', markOK);
     submitEnabled();
   }
 
   formName.oninput = function(){
-    nameOK = checkName();
+    //nameOK = checkName();
     submitEnabled();
   }
 })();
