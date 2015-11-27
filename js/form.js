@@ -27,7 +27,12 @@ var formHint = formElement.querySelector('.review-fields');
 var formHintName = formHint.querySelector('.review-fields-name');
 var formHintText = formHint.querySelector('.review-fields-text');
 
+/**
+ * @const минимальное кол-во валидных символов
+ * @type {number}
+ */
 var MINUMUM = 3;
+
 var nameOK = false;
 var markOK = false;
 var textOK = false;
@@ -104,11 +109,11 @@ function checkText() {
   submitEnabled();
   formText.oninput = function() {
     submitEnabled();
-  }
+  };
   formMark.onchange = function() {
     submitEnabled();
-  }
-  formName.oninput = function(){
+  };
+  formName.oninput = function() {
     submitEnabled();
-  }
+  };
 })();
