@@ -24,8 +24,8 @@ var formMark = formElement.querySelector('.review-form-group-mark');
 var formText = formElement.querySelector('.review-form-field-text');
 var formSubmit = formElement.querySelector('.review-submit');
 var formHint = formElement.querySelector('.review-fields');
-var formHintName = formHintName.formHint.querySelector('.review-fields-name');
-var formHintText = formHintText.formHint.querySelector('.review-fields-text');
+var formHintName = formHint.querySelector('.review-fields-name');
+var formHintText = formHint.querySelector('.review-fields-text');
 
 var MINUMUM = 3;
 var nameOK = false;
