@@ -49,7 +49,7 @@ function checkMark() {
   var arr = formMark.querySelectorAll('input');
   console.log('textOK в марке = ', textOK);
   for (var i = 0; i < arr.length; i++) {
-    if ((arr[i].checked && i > 1) || textOK) {
+    if (arr[i].checked && i > 1) {
       //return true;
       markOK = true;
       break;
