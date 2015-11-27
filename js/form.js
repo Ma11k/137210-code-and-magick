@@ -30,10 +30,10 @@ var markOK = false;
 var textOK = false;
 
 function submitEnabled() {
-  if (markOK && nameOK && textOK) {
-    console.log('markOK = ', markOK);
-    console.log('nameOK = ', nameOK);
-    console.log('textOK = ', textOK);
+  if (nameOK == true) {
+    console.log('markOK = ', typeof markOK);
+    console.log('nameOK = ', typeof nameOK);
+    console.log('textOK = ', typeof textOK);
     formSubmit.disabled = false;
   } else {
     formSubmit.disabled = true;
@@ -51,19 +51,19 @@ function checkRadio() {
 }
 
 function checkName() {
-  console.log('formName.innerHTML = ', formName.innerHTML);
-  if (formName.innerHTML != '') {
+  console.log('formName.value = ', formName.value);
+  if (formName.value != '') {
     return true;
   }
   return false;
 }
 
-function validation() {
+(function validation() {
 
   markOK = checkRadio();
   nameOK = checkName();
   textOK = true;
-  if(!markOK) {textOK = false};
+  //if(!markOK) {textOK = false};
   submitEnabled();
 
 
@@ -72,17 +72,14 @@ function validation() {
   }
 
   formMark.onchange = function(){
-    markOK = findChecked(formMark.querySelectorAll('input'));
+    markOK = checkRadio();
     console.log('markOK = ', markOK);
   }
 
   formName.onchange = function(){
     var nameOK = checkName();
     console.log('nameOK = ', nameOK);
-    submitEnabled(markOK, nameOK);
+    console.log('markOK = ', markOK);
+    submitEnabled();
   }
-
-
-
-}
-validation();
+})();
