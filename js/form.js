@@ -32,7 +32,8 @@ var textOK = false;
 function submitEnabled() {
   console.log('markOK ! = ', markOK);
   console.log('nameOK ! = ', nameOK);
-  if (markOK && nameOK && textOK) {
+  console.log('textOK ! = ', textOK);
+  if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
   } else {
     console.log(' фигня ');
@@ -42,8 +43,9 @@ function submitEnabled() {
 
 function checkMark() {
   var arr = formMark.querySelectorAll('input');
+  console.log('textOK в марке = ', checkText());
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].checked  && i > 1 && textOK) {
+    if ((arr[i].checked && i > 1) || checkText()) {
       return true;
     }
   }
@@ -59,8 +61,9 @@ function checkName() {
 }
 
 function checkText() {
-  if (formText.value != '') {
+  if (formText.value.length > 2) {
     return true;
+    console.log('true = ');
   }
   return false;
 }
@@ -69,13 +72,14 @@ function checkText() {
 
   markOK = checkMark();
   nameOK = checkName();
-  textOK = true;
-  if(!markOK) {textOK = false};
+  textOK = checkText();
   submitEnabled();
 
 
-  formText.onchange = function(){
-
+  formText.oninput = function(){
+    textOK = checkText();
+    console.log('textOK = ', textOK);
+    submitEnabled();
   }
 
   formMark.onchange = function(){
