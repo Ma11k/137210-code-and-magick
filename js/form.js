@@ -18,23 +18,71 @@
 
 
 //Форма и поля ввода
-// var formElement = document.forms['review-form'];
-// var formMark = formElement['review-form-group-mark'];
-// var formName = formElement['review-name'];
-// var formText = formElement['review-text'];
-// var formSubmit = formElement['review-submit'];
-// var formHint = formElement['review-fields'];
+var formElement = document.querySelector('form.review-form');
+var formName = formElement.querySelector('.review-form-field-name');
+var formMark = formElement.querySelector('.review-form-group-mark');
+var formText = formElement.querySelector('.review-form-field-text');
+var formSubmit = formElement.querySelector('.review-submit');
+var formHint = formElement.querySelector('.review-fields');
 
-var formElement = document.querySelectorAll('form.review-form');
+var nameOK = false;
+var markOK = false;
+var textOK = false;
+
+function submitEnabled() {
+  if (markOK && nameOK && textOK) {
+    console.log('markOK = ', markOK);
+    console.log('nameOK = ', nameOK);
+    console.log('textOK = ', textOK);
+    formSubmit.disabled = false;
+  } else {
+    formSubmit.disabled = true;
+  }
+}
+
+function checkRadio() {
+  var arr = formMark.querySelectorAll('input');
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].checked  && i > 1) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkName() {
+  console.log('formName.innerHTML = ', formName.innerHTML);
+  if (formName.innerHTML != '') {
+    return true;
+  }
+  return false;
+}
 
 function validation() {
 
-  formName.onchange = function(){
-    alert('1111');
-  }
+  markOK = checkRadio();
+  nameOK = checkName();
+  textOK = true;
+  if(!markOK) {textOK = false};
+  submitEnabled();
+
+
   formText.onchange = function(){
-    alert('4544');
-}
+
+  }
+
+  formMark.onchange = function(){
+    markOK = findChecked(formMark.querySelectorAll('input'));
+    console.log('markOK = ', markOK);
+  }
+
+  formName.onchange = function(){
+    var nameOK = checkName();
+    console.log('nameOK = ', nameOK);
+    submitEnabled(markOK, nameOK);
+  }
+
+
 
 }
 validation();
