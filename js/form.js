@@ -49,7 +49,6 @@ function submitEnabled() {
     formSubmit.disabled = false;
     formHint.style.display = 'none';
   } else {
-    console.log(' фигня ');
     formSubmit.disabled = true;
     formHint.style.display = 'inline-block';
   }
@@ -76,10 +75,10 @@ function checkMark() {
 function checkName() {
   if (formName.value.length >= MINUMUM) {
     nameOK = true;
-    formHintName.style.display = 'none';
+    formHintName.classList.add('invisible')
   } else {
     nameOK = false;
-    formHintName.style.display = 'inline';
+    formHintName.classList.remove('invisible')
   }
 }
 
@@ -90,14 +89,14 @@ function checkText() {
   if (formText.value.length >= MINUMUM) {
     textOK = true;
     if (markOK || textOK) {
-      formHintText.style.display = 'none';
+      formHintText.classList.add('invisible')
     }
   } else {
     textOK = false;
     if (markOK) {
-      formHintText.style.display = 'none';
+      formHintText.classList.add('invisible')
     } else {
-      formHintText.style.display = 'inline';
+      formHintText.classList.remove('invisible')
     }
   }
 }
