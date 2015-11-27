@@ -24,87 +24,91 @@ var formMark = formElement.querySelector('.review-form-group-mark');
 var formText = formElement.querySelector('.review-form-field-text');
 var formSubmit = formElement.querySelector('.review-submit');
 var formHint = formElement.querySelector('.review-fields');
+var formHintName = formHintName.formHint.querySelector('.review-fields-name');
+var formHintText = formHintText.formHint.querySelector('.review-fields-text');
 
 var MINUMUM = 3;
 var nameOK = false;
 var markOK = false;
 var textOK = false;
 
+/**
+ * Проверяет поля и блокирует/разблокирует кнопку,
+ * а также скрывает/показывает хинт
+*/
 function submitEnabled() {
-  checkText();
   checkMark();
+  checkText();
   checkName();
-  console.log('markOK ! = ', markOK);
-  console.log('nameOK ! = ', nameOK);
-  console.log('textOK ! = ', textOK);
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
+    formHint.style.display = 'none';
   } else {
     console.log(' фигня ');
     formSubmit.disabled = true;
+    formHint.style.display = 'inline-block';
   }
 }
 
+/**
+ * Проверяет текущее значение оценки
+*/
 function checkMark() {
   var arr = formMark.querySelectorAll('input');
-  console.log('textOK в марке = ', textOK);
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].checked && i > 1) {
-      //return true;
       markOK = true;
       break;
-      console.log('markO = ', markOK);
     } else {
       markOK = false;
-      console.log('mark1 = ', markOK);
     }
   }
-  //return false;
-
 }
 
+/**
+ * Проверяет валидность поля Имя
+*/
 function checkName() {
   if (formName.value.length >= MINUMUM) {
-    //return true;
-    nameOK = true
+    nameOK = true;
+    formHintName.style.display = 'none';
   } else {
     nameOK = false;
+    formHintName.style.display = 'inline';
   }
-  //return false;
 }
 
+/**
+ * Проверяет валидность поля Текст
+*/
 function checkText() {
   if (formText.value.length >= MINUMUM) {
-    //return true;
     textOK = true;
+    if (markOK || textOK) {
+      formHintText.style.display = 'none';
+    }
   } else {
     textOK = false;
+    if (markOK) {
+      formHintText.style.display = 'none';
+    } else {
+      formHintText.style.display = 'inline';
+    }
   }
-  //return false;
 }
 
+/**
+ * Присваивает слушателей
+*/
 (function validation() {
-  // markOK = checkMark();
-  // nameOK = checkName();
-  // textOK = checkText();
   submitEnabled();
-
-  formText.oninput = function(){
-    //textOK = checkText();
-    //checkText();
-    console.log('textOK = ', textOK);
+  formText.oninput = function() {
     submitEnabled();
   }
-
-  formMark.onchange = function(){
-    //markOK = checkMark();
-    //checkMark();
-    console.log('markOK = ', markOK);
+  formMark.onchange = function() {
     submitEnabled();
   }
-
   formName.oninput = function(){
-    //nameOK = checkName();
     submitEnabled();
   }
 })();
