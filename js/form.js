@@ -46,10 +46,10 @@ function submitEnabled() {
   checkName();
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
-    formHint.style.display = 'none';
+    formHint.classList.add('invisible');
   } else {
     formSubmit.disabled = true;
-    formHint.style.display = 'inline-block';
+    formHint.classList.remove('invisible');
   }
 }
 
