@@ -16,7 +16,6 @@
   };
 })();
 
-
 //Форма и поля ввода
 var formElement = document.querySelector('form.review-form');
 var formName = formElement.querySelector('.review-form-field-name');
@@ -58,15 +57,12 @@ function submitEnabled() {
  * Проверяет текущее значение оценки
 */
 function checkMark() {
-  var arr = formMark.querySelectorAll('input');
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i].checked && i > 1) {
-      markOK = true;
-      break;
-    } else {
-      markOK = false;
+  var arr = Array.prototype.slice.call(formMark.querySelectorAll('input'));
+  markOK = arr.some(function(item) {
+    if (item.checked && item.value >= 3) {
+      return true;
     }
-  }
+  });
 }
 
 /**
@@ -75,10 +71,10 @@ function checkMark() {
 function checkName() {
   if (formName.value.length >= MINUMUM) {
     nameOK = true;
-    formHintName.classList.add('invisible')
+    formHintName.classList.add('invisible');
   } else {
     nameOK = false;
-    formHintName.classList.remove('invisible')
+    formHintName.classList.remove('invisible');
   }
 }
 
@@ -89,14 +85,14 @@ function checkText() {
   if (formText.value.length >= MINUMUM) {
     textOK = true;
     if (markOK || textOK) {
-      formHintText.classList.add('invisible')
+      formHintText.classList.add('invisible');
     }
   } else {
     textOK = false;
     if (markOK) {
-      formHintText.classList.add('invisible')
+      formHintText.classList.add('invisible');
     } else {
-      formHintText.classList.remove('invisible')
+      formHintText.classList.remove('invisible');
     }
   }
 }
