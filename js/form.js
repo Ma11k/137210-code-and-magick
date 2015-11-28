@@ -59,9 +59,7 @@ function submitEnabled() {
 function checkMark() {
   var arr = Array.prototype.slice.call(formMark.querySelectorAll('input'));
   markOK = arr.some(function(item) {
-    if (item.checked && item.value >= 3) {
-      return true;
-    }
+    return item.checked && item.value >= 3;
   });
 }
 
