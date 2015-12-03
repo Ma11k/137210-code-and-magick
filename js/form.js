@@ -35,6 +35,7 @@ var MINUMUM = 3;
 var nameOK = false;
 var markOK = false;
 var textOK = false;
+var markVal;
 
 /**
  * Проверяет поля и блокирует/разблокирует кнопку,
@@ -47,6 +48,7 @@ function submitEnabled() {
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
+    document.cookie = '';
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
@@ -54,11 +56,15 @@ function submitEnabled() {
 }
 
 /**
- * Проверяет текущее значение оценки
+ * Проверяет текущее значение оценки и назначает переменной оценку
 */
 function checkMark() {
   var arr = Array.prototype.slice.call(formMark.querySelectorAll('input'));
   markOK = arr.some(function(item) {
+    if (item.checked) {
+      markVal = item.value;
+    }
+    console.log('markVal = ', markVal);
     return item.checked && item.value >= 3;
   });
 }
