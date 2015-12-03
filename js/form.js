@@ -17,16 +17,6 @@
 })();
 
 
-// (Функция взята из приложенной в описании ссылки)
-// возвращает cookie с именем name, если есть, если нет, то undefined
-function getCookie(name) {
-  var matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-
 
 //Форма и поля ввода
 var formElement = document.querySelector('form.review-form');
@@ -61,7 +51,7 @@ function submitEnabled() {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
     document.cookie = 'userMark = ' + markVal;
-    document.cookie = 'userName = ' + formName.value;    
+    document.cookie = 'userName = ' + formName.value;
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
@@ -72,12 +62,12 @@ function submitEnabled() {
  * Проверяет текущее значение оценки
 */
 function checkMark() {
-  var arr = Array.prototype.slice.call(formMark.querySelectorAll('input'));  
+  var arr = Array.prototype.slice.call(formMark.querySelectorAll('input'));
   markOK = arr.some(function(item) {
     if (item.checked) {
       markVal = item.value;
     }
-    console.log('markVal = ', markVal);    
+    console.log('markVal = ', markVal);
     return item.checked && item.value >= 3;
   });
 }
