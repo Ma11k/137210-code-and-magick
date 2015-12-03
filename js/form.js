@@ -17,8 +17,6 @@
   };
 })();
 
-
-
 //Форма и поля ввода
 var formElement = document.querySelector('form.review-form');
 var formName = formElement.querySelector('.review-form-field-name');
@@ -124,7 +122,6 @@ function checkText() {
   formName.oninput = function() {
     submitEnabled();
   };
-
   formName.value = getCookie('userName') || '';
   if (getCookie('userMark')) {
     formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
