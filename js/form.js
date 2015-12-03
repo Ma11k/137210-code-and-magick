@@ -124,6 +124,8 @@ function checkText() {
   console.log('datebirth = ', datebirth);
   var datenow = Date.now();
   console.log('datenow = ', datenow);
-  formName.value = decodeURIComponent(getCookie('userName')) || '';
-  formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
+  formName.value = getCookie('userName') || '';
+  if (getCookie('userMark')) {
+    formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
+  }
 })();
