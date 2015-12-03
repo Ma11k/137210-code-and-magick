@@ -35,6 +35,12 @@ var formHintText = formHint.querySelector('.review-fields-text');
  */
 var MINUMUM = 3;
 
+/**
+ * @const срок жизник куки по заданию
+ * @type {number}
+ */
+var COOKIELIFE = Date.now() - Date.parse(1983, 5, 26);
+
 var nameOK = false;
 var markOK = false;
 var textOK = false;
@@ -51,8 +57,9 @@ function submitEnabled() {
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
-    document.cookie = 'userMark = ' + markVal;
-    document.cookie = 'userName = ' + encodeURIComponent(formName.value);
+    // document.cookie = 'userMark = ' + markVal;
+    // document.cookie = 'userName = ' + encodeURIComponent(formName.value);
+    setCookie(COOKIELIFE);
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
@@ -120,10 +127,6 @@ function checkText() {
     submitEnabled();
   };
 
-  var datebirth = Date.parse(1983, 5, 26);
-  console.log('datebirth = ', datebirth);
-  var datenow = Date.now();
-  console.log('datenow = ', datenow);
   formName.value = getCookie('userName') || '';
   if (getCookie('userMark')) {
     formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
