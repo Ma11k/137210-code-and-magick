@@ -1,5 +1,7 @@
 'use strict';
 
+/*global getCookie:true, setCookie:true*/
+
 (function() {
   var formContainer = document.querySelector('.overlay-container');
   var formOpenButton = document.querySelector('.reviews-controls-new');
@@ -15,7 +17,6 @@
     formContainer.classList.add('invisible');
   };
 })();
-
 
 
 //Форма и поля ввода
@@ -51,7 +52,7 @@ function submitEnabled() {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
     document.cookie = 'userMark = ' + markVal;
-    document.cookie = 'userName = ' + formName.value;
+    document.cookie = 'userName = ' + encodeURIComponent(formName.value);
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
@@ -118,6 +119,11 @@ function checkText() {
   formName.oninput = function() {
     submitEnabled();
   };
-  formName.value = getCookie('userName') || '';
+
+  var datebirth = Date.parse(1983, 5, 26);
+  console.log('datebirth = ', datebirth);
+  var datenow = Date.now();
+  console.log('datenow = ', datenow);
+  formName.value = decodeURIComponent(getCookie('userName')) || '';
   formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
 })();
