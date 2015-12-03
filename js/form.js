@@ -1,6 +1,5 @@
+/*global getCookie, setCookie*/
 'use strict';
-
-/*global getCookie:true, setCookie:true*/
 
 (function() {
   var formContainer = document.querySelector('.overlay-container');
@@ -17,6 +16,7 @@
     formContainer.classList.add('invisible');
   };
 })();
+
 
 
 //Форма и поля ввода
