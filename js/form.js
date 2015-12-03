@@ -39,10 +39,10 @@ var MINUMUM = 3;
  */
 var COOKIELIFE = Date.now() - Date.parse(1983, 5, 26);
 
+var markVal = MINUMUM;
 var nameOK = false;
 var markOK = false;
 var textOK = false;
-var markVal = MINUMUM;
 
 /**
  * Проверяет поля и блокирует/разблокирует кнопку,
