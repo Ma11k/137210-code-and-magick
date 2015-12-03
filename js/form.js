@@ -118,6 +118,6 @@ function checkText() {
   formName.oninput = function() {
     submitEnabled();
   };
-  formName.value = getCookie('userName');
+  formName.value = getCookie('userName') || '';
   formMark.querySelector('#review-mark-' + getCookie('userMark')).checked = true;
 })();
