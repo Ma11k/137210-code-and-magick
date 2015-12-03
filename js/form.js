@@ -57,9 +57,8 @@ function submitEnabled() {
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
-    // document.cookie = 'userMark = ' + markVal;
-    // document.cookie = 'userName = ' + encodeURIComponent(formName.value);
-    setCookie(COOKIELIFE);
+    setCookie('userMark', markVal, {expires: COOKIELIFE});
+    setCookie('userName', formName.value, {expires: COOKIELIFE});
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
@@ -75,7 +74,6 @@ function checkMark() {
     if (item.checked) {
       markVal = item.value;
     }
-    console.log('markVal = ', markVal);
     return item.checked && item.value >= 3;
   });
 }
