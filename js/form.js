@@ -29,15 +29,15 @@ var formHintText = formHint.querySelector('.review-fields-text');
 
 /**
  * @const минимальное кол-во валидных символов
- * @type {number}
+ * @const {number}
  */
 var MINUMUM = 3;
 
 /**
- * @const срок жизник куки по заданию
- * @type {number}
+ * @const срок жизни куки по заданию
+ * @const {number}
  */
-var COOKIELIFE = Date.now() - Date.parse(1983, 5, 26);
+var COOKIELIFE = Date.now() - Date.parse(new Date().getFullYear(), 5, 26);
 
 var markVal = MINUMUM;
 var nameOK = false;
