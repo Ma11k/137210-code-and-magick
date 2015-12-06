@@ -1,24 +1,25 @@
 'use strict';
 /* global reviews:true */
 
+var template = document.querySelector('#review-template');
+var element;
+if ('content' in template) {
+  element = template.content.children[0].cloneNode(true);
+} else {
+  element = template.children[0].cloneNode(true);
+}
+var ratingArr = ['one', 'two', 'three', 'four', 'five'];
+
 /**
  * @param {Object} data
  * @return {Element}
  */
 function getElementFromTemplate(data) {
-  var template = document.querySelector('#review-template');
-  var element;
-  if ('content' in template) {
-    element = template.content.children[0].cloneNode(true);
-  } else {
-    element = template.children[0].cloneNode(true);
-  }
-
   //Text
   element.querySelector('.review-text').textContent = data.description;
 
   //Image
-  var backgroundImage = new Image();
+  var backgroundImage = new Image(124, 124);
   backgroundImage.onload = function() {
     backgroundImage.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
   };
@@ -27,24 +28,27 @@ function getElementFromTemplate(data) {
   };
   backgroundImage.src = '/' + data.author.picture;
   backgroundImage.classList.add('review-author');
-  backgroundImage.style.width = '124px';
-  backgroundImage.style.height = '124px';
   backgroundImage.title = data.author.name;
   backgroundImage.alt = data.author.name;
   element.replaceChild(backgroundImage, element.querySelector('.review-author'));
 
   //Rating
-  var ratingArr = ['one', 'two', 'three', 'four', 'five'];
   element.querySelector('.review-rating').classList.add('review-rating-' + ratingArr[data.rating - 1]);
 
   return element;
 }
 
 (function() {
-  document.querySelector('.reviews-filter').classList.add('invisible');
+
+
   var container = document.querySelector('.reviews-list');
   reviews.forEach(function(item) {
-    var element = getElementFromTemplate(item);
-    container.appendChild(element);
+    var oneReview = getElementFromTemplate(item);
+    container.appendChild(oneReview);
   });
+
+  if (reviews.length > 0) {
+    document.querySelector('.reviews-filter').classList.remove('invisible');
+  }
+
 })();
