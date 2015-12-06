@@ -50,7 +50,8 @@ function submitEnabled() {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
     var now = Date.now();
-    var birthDay = new Date();
+    var birthDay = new Date(+now);
+    console.log('birthDay = ', birthDay);
     birthDay.setMonth(4);
     birthDay.setDate(26);
     if (now < birthDay.getTime()) {
