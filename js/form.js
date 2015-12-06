@@ -33,12 +33,6 @@ var formHintText = formHint.querySelector('.review-fields-text');
  */
 var MINUMUM = 3;
 
-/**
- * @const срок жизни куки по заданию
- * @const {number}
- */
-var COOKIELIFE = Date.now() - Date.parse(new Date().getFullYear(), 5, 26);
-
 var markVal = MINUMUM;
 var nameOK = false;
 var markOK = false;
@@ -55,8 +49,18 @@ function submitEnabled() {
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
-    setCookie('userMark', markVal, {expires: COOKIELIFE});
-    setCookie('userName', formName.value, {expires: COOKIELIFE});
+    //Dates    
+    var now = Date.now();
+    var birthDay = new Date();
+    birthDay.setMonth(4);
+    birthDay.setDate(26);
+    if (now < birthDay.getTime()) {
+      birthDay.setFullYear(birthDay.getFullYear() - 1); 
+    }
+    var timeDelta = (now - birthDay.getTime())/1000; //т. к. cookies.js работает с сек. 
+    console.log('timeDelta = ', timeDelta);
+    setCookie('userMark', markVal, {expires: timeDelta});
+    setCookie('userName', formName.value, {expires: timeDelta});
   } else {
     formSubmit.disabled = true;
     formHint.classList.remove('invisible');
