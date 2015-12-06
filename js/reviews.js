@@ -1,4 +1,7 @@
 'use strict';
+
+/* global reviews:true */
+
 /**
  * @param {Object} data
  * @return {Element}
@@ -13,13 +16,26 @@ function getElementFromTemplate(data) {
   }
 
   element.querySelector('.review-text').textContent = data.description;
+  console.log('element = ', element);
 
-  var backgroundImage = new Image();
-  backgroundImage.onload = function() {
-    element.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
-  };
-
-  backgroundImage.src = '/img/' + data.picture;
+  // var backgroundImage = new Image();
+  // backgroundImage.onload = function() {
+  //   element.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
+  // }
+  //
+  // backgroundImage.src = '/img/' + data.picture;
 
   return element;
 }
+
+function parse() {
+  var container = document.querySelector('.reviews-list');
+
+  var element = reviews.forEach(function(item, i, reviews) {
+    var element = getElementFromTemplate(item);
+    container.appendChild(element);
+  });
+
+
+};
+parse();
