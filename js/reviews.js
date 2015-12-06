@@ -14,6 +14,12 @@ function getElementFromTemplate(data) {
 
   element.querySelector('.review-text').textContent = data.description;
 
+  var backgroundImage = new Image();
+  backgroundImage.onload = function() {
+    element.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
+  };
+
+  backgroundImage.src = '/img/' + data.picture;
 
   return element;
 }
