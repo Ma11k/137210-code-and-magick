@@ -20,10 +20,12 @@ function getElementFromTemplate(data) {
 
   var backgroundImage = new Image();
   backgroundImage.onload = function() {
-    element.querySelector('.review-author').style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
+    backgroundImage.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
   }
-  backgroundImage.src = '../' + data.author.picture;
+  backgroundImage.src = '/' + data.author.picture;
   backgroundImage.classList.add('review-author');
+  backgroundImage.style.width = '124px';
+  backgroundImage.style.height = '124px';
   backgroundImage.title = data.author.name;
   backgroundImage.alt = data.author.name;
 
