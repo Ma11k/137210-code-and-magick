@@ -57,7 +57,6 @@ function submitEnabled() {
       birthDay.setFullYear(birthDay.getFullYear() - 1);
     }
     var timeDelta = (now - birthDay.getTime()) / 1000; //т. к. cookies.js работает с сек.
-    console.log('timeDelta = ', timeDelta);
     setCookie('userMark', markVal, {expires: timeDelta});
     setCookie('userName', formName.value, {expires: timeDelta});
   } else {
