@@ -49,15 +49,14 @@ function submitEnabled() {
   if (nameOK && (markOK || textOK)) {
     formSubmit.disabled = false;
     formHint.classList.add('invisible');
-    //Dates    
     var now = Date.now();
     var birthDay = new Date();
     birthDay.setMonth(4);
     birthDay.setDate(26);
     if (now < birthDay.getTime()) {
-      birthDay.setFullYear(birthDay.getFullYear() - 1); 
+      birthDay.setFullYear(birthDay.getFullYear() - 1);
     }
-    var timeDelta = (now - birthDay.getTime())/1000; //т. к. cookies.js работает с сек. 
+    var timeDelta = (now - birthDay.getTime()) / 1000; //т. к. cookies.js работает с сек.
     console.log('timeDelta = ', timeDelta);
     setCookie('userMark', markVal, {expires: timeDelta});
     setCookie('userName', formName.value, {expires: timeDelta});
