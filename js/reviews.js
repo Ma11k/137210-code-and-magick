@@ -18,12 +18,17 @@ function getElementFromTemplate(data) {
   element.querySelector('.review-text').textContent = data.description;
   console.log('element = ', element);
 
-  // var backgroundImage = new Image();
-  // backgroundImage.onload = function() {
-  //   element.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
-  // }
-  //
-  // backgroundImage.src = '/img/' + data.picture;
+  var backgroundImage = new Image();
+  backgroundImage.onload = function() {
+    element.querySelector('.review-author').style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
+  }
+  backgroundImage.src = '../' + data.author.picture;
+  backgroundImage.classList.add('review-author');
+  backgroundImage.title = data.author.name;
+  backgroundImage.alt = data.author.name;
+
+  element.replaceChild(backgroundImage, element.querySelector('.review-author'))
+
 
   return element;
 }
