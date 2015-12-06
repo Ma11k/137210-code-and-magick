@@ -14,8 +14,10 @@ function getElementFromTemplate(data) {
     element = template.children[0].cloneNode(true);
   }
 
+  //Text
   element.querySelector('.review-text').textContent = data.description;
 
+  //Image
   var backgroundImage = new Image();
   backgroundImage.onload = function() {
     backgroundImage.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
@@ -30,6 +32,11 @@ function getElementFromTemplate(data) {
   backgroundImage.title = data.author.name;
   backgroundImage.alt = data.author.name;
   element.replaceChild(backgroundImage, element.querySelector('.review-author'));
+
+  //Rating
+  var ratingArr = ['one', 'two', 'three', 'four', 'five'];
+  element.querySelector('.review-rating').classList.add('review-rating-' + ratingArr[data.rating - 1]);
+
   return element;
 }
 
