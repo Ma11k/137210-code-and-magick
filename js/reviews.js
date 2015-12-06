@@ -22,6 +22,9 @@ function getElementFromTemplate(data) {
   backgroundImage.onload = function() {
     backgroundImage.style.backgroundImage = 'url(\'' + backgroundImage.src + '\')';
   }
+  backgroundImage.onerror = function() {
+    element.classList.add('review-load-failure');
+  }
   backgroundImage.src = '/' + data.author.picture;
   backgroundImage.classList.add('review-author');
   backgroundImage.style.width = '124px';
@@ -35,7 +38,8 @@ function getElementFromTemplate(data) {
   return element;
 }
 
-function parse() {
+
+(function() {
   var container = document.querySelector('.reviews-list');
 
   var element = reviews.forEach(function(item, i, reviews) {
@@ -43,6 +47,4 @@ function parse() {
     container.appendChild(element);
   });
 
-
-};
-parse();
+})();
