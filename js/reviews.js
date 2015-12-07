@@ -33,13 +33,12 @@ function getElementFromTemplate(data) {
 }
 
 (function() {
-  document.querySelector('.reviews-filter').classList.add('invisible');
+  if (!reviews.length) {
+    document.querySelector('.reviews-filter').classList.add('invisible');
+  }
   var container = document.querySelector('.reviews-list');
   reviews.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
     container.appendChild(oneReview);
   });
-  if (container.innerHTML.length > 0) {
-    document.querySelector('.reviews-filter').classList.remove('invisible');
-  }
 })();
