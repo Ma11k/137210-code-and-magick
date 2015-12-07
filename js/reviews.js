@@ -22,7 +22,7 @@ function getElementFromTemplate(data) {
   backgroundImage.onerror = function() {
     element.classList.add('review-load-failure');
   };
-  backgroundImage.src = '../' + data.author.picture;
+  backgroundImage.src = data.author.picture;
   backgroundImage.classList.add('review-author');
   backgroundImage.title = data.author.name;
   backgroundImage.alt = data.author.name;
