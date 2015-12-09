@@ -3,7 +3,7 @@
 
 var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
-var timplateContent = (template.content || template).children[0];
+var templateContent = (template.content || template).children[0];
 
 /**
  * @param {Object} data
@@ -11,7 +11,7 @@ var timplateContent = (template.content || template).children[0];
  */
 function getElementFromTemplate(data) {
   var element;
-  element = timplateContent.cloneNode(true);
+  element = templateContent.cloneNode(true);
   //Text
   element.querySelector('.review-text').textContent = data.description;
   //Image
