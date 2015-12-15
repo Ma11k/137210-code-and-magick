@@ -1,6 +1,5 @@
 'use strict';
 
-var reviews = null;
 var xhr = new XMLHttpRequest();
 /**
  * @param {string} method
@@ -9,9 +8,13 @@ var xhr = new XMLHttpRequest();
 */
 xhr.open('GET', 'data/reviews.json');
 xhr.timeout = 10000;
+
+/**
+ * @param {Event} evt
+*/
 xhr.onload = function(evt) {
-  console.log(JSON.parse(evt.srcElement.response));
-}
+  renderReviews(JSON.parse(evt.srcElement.response));
+};
 xhr.send();
 
 var template = document.querySelector('#review-template');
@@ -45,7 +48,10 @@ function getElementFromTemplate(data) {
   return element;
 }
 
-(function() {
+/**
+ * @param {Object} data in JSON format
+*/
+function renderReviews(reviews) {
   if (!reviews.length) {
     document.querySelector('.reviews-filter').classList.add('invisible');
   }
@@ -54,4 +60,4 @@ function getElementFromTemplate(data) {
     var oneReview = getElementFromTemplate(item);
     container.appendChild(oneReview);
   });
-})();
+};
