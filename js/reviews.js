@@ -13,6 +13,7 @@ xhr.timeout = 10000;
  * @param {Event} evt
 */
 xhr.onload = function(evt) {
+  reviewsContainer.classList.remove('reviews-list-loading');
   renderReviews(JSON.parse(evt.srcElement.response));
 };
 xhr.send();
@@ -20,7 +21,7 @@ xhr.send();
 var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
 var timplateContent = (template.content || template).children[0];
-
+var reviewsContainer = document.querySelector('.reviews');
 /**
  * @param {Object} data
  * @return {Element}
@@ -60,4 +61,8 @@ function renderReviews(reviews) {
     var oneReview = getElementFromTemplate(item);
     container.appendChild(oneReview);
   });
-};
+}
+
+(function() {
+  reviewsContainer.classList.add('reviews-list-loading');
+})();
