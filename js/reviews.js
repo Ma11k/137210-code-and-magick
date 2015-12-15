@@ -16,6 +16,10 @@ xhr.onload = function(evt) {
   reviewsContainer.classList.remove('reviews-list-loading');
   renderReviews(JSON.parse(evt.srcElement.response));
 };
+xhr.onerror = function() {
+  reviewsContainer.classList.remove('reviews-list-loading');
+  reviewsContainer.classList.add('reviews-load-failure');
+};
 xhr.send();
 
 var template = document.querySelector('#review-template');
@@ -50,7 +54,7 @@ function getElementFromTemplate(data) {
 }
 
 /**
- * @param {Object} data in JSON format
+ * @param {Object} data
 */
 function renderReviews(reviews) {
   if (!reviews.length) {
