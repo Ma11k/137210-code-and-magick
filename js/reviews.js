@@ -1,5 +1,18 @@
 'use strict';
-/* global reviews:true */
+
+var reviews = null;
+var xhr = new XMLHttpRequest();
+/**
+ * @param {string} method
+ * @param {string} URL
+ * @param {boolean} async
+*/
+xhr.open('GET', 'data/reviews.json');
+xhr.timeout = 10000;
+xhr.onload = function(evt) {
+  console.log(JSON.parse(evt.srcElement.response));
+}
+xhr.send();
 
 var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
