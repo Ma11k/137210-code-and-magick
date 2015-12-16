@@ -1,5 +1,6 @@
 'use strict';
 
+var reviews = null;
 var xhr = new XMLHttpRequest();
 /**
  * @param {string} method
@@ -14,7 +15,8 @@ xhr.timeout = 10000;
 */
 xhr.onload = function(evt) {
   reviewsContainer.classList.remove('reviews-list-loading');
-  renderReviews(JSON.parse(evt.srcElement.response));
+  reviews = JSON.parse(evt.srcElement.response);
+  renderReviews(reviews);
 };
 xhr.onerror = function() {
   reviewsContainer.classList.remove('reviews-list-loading');
@@ -26,6 +28,7 @@ var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
 var timplateContent = (template.content || template).children[0];
 var reviewsContainer = document.querySelector('.reviews');
+var filtersAll = document.querySelector('.reviews-filter');
 /**
  * @param {Object} data
  * @return {Element}
@@ -56,17 +59,54 @@ function getElementFromTemplate(data) {
 /**
  * @param {Object} data
 */
-function renderReviews(reviews) {
-  if (!reviews.length) {
-    document.querySelector('.reviews-filter').classList.add('invisible');
+function renderReviews(reviewsToRender) {
+  if (!reviewsToRender.length) {
+    filtersAll.classList.add('invisible');
   }
   var container = document.querySelector('.reviews-list');
-  reviews.forEach(function(item) {
+  reviewsToRender.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
     container.appendChild(oneReview);
   });
 }
 
+var activeFilter = 'reviews-all';
+function setFilter(id) {
+  if (activeFilter === id) {
+    return;
+  }
+  filtersAll[activeFilter].checked = false;
+  filtersAll[id].checked = true;
+  var filteredReviews = reviews.slice(0);
+  switch (id) {
+    case 'reviews-all':
+
+      break;
+    case 'reviews-recent':
+
+      break;
+    case 'reviews-good':
+
+      break;
+    case 'reviews-bad':
+
+      break;
+    case 'reviews-popular':
+
+      break;
+    default:
+
+  }
+  renderReviews(filteredReviews);
+}
+
 (function() {
   reviewsContainer.classList.add('reviews-list-loading');
+  Array.prototype.slice.call(filtersAll.children).forEach(function(item) {
+    item.onclick = function(evt) {
+      var filterID = evt.target.id;
+      setFilter(filterID);
+    };
+  });
+
 })();
