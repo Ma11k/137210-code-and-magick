@@ -9,7 +9,6 @@ var xhr = new XMLHttpRequest();
 */
 xhr.open('GET', 'data/reviews.json');
 xhr.timeout = 10000;
-
 /**
  * @param {Event} evt
 */
@@ -29,6 +28,8 @@ var ratingArr = ['one', 'two', 'three', 'four', 'five'];
 var timplateContent = (template.content || template).children[0];
 var reviewsContainer = document.querySelector('.reviews');
 var filtersAll = document.querySelector('.reviews-filter');
+var activeFilter = 'reviews-all';
+
 /**
  * @param {Object} data
  * @return {Element}
@@ -65,13 +66,17 @@ function renderReviews(reviewsToRender) {
   }
   var container = document.querySelector('.reviews-list');
   container.innerHTML = '';
+  var fragment = document.createDocumentFragment();
   reviewsToRender.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
-    container.appendChild(oneReview);
+    fragment.appendChild(oneReview);
   });
+  container.appendChild(fragment);
 }
 
-var activeFilter = 'reviews-all';
+/**
+ * @param {string} id of active filter
+*/
 function setFilter(id) {
   if (activeFilter === id) {
     return;
@@ -79,7 +84,6 @@ function setFilter(id) {
   var filteredReviews = reviews.slice(0);
   switch (id) {
     case 'reviews-all':
-
       break;
     case 'reviews-recent':
       filteredReviews.sort(function(a, b) {
@@ -101,8 +105,6 @@ function setFilter(id) {
         return a.reviewRating - b.reviewRating;
       });
       break;
-    default:
-
   }
   renderReviews(filteredReviews);
 }
@@ -115,5 +117,4 @@ function setFilter(id) {
       setFilter(filterID);
     };
   });
-
 })();
