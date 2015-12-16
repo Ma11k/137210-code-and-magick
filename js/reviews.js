@@ -64,6 +64,7 @@ function renderReviews(reviewsToRender) {
     filtersAll.classList.add('invisible');
   }
   var container = document.querySelector('.reviews-list');
+  container.innerHTML = '';
   reviewsToRender.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
     container.appendChild(oneReview);
@@ -75,24 +76,30 @@ function setFilter(id) {
   if (activeFilter === id) {
     return;
   }
-  filtersAll[activeFilter].checked = false;
-  filtersAll[id].checked = true;
   var filteredReviews = reviews.slice(0);
   switch (id) {
     case 'reviews-all':
 
       break;
     case 'reviews-recent':
-
+      filteredReviews.sort(function(a, b) {
+        return b.date - a.date;
+      });
       break;
     case 'reviews-good':
-
+      filteredReviews.sort(function(a, b) {
+        return b.rating - a.rating;
+      });
       break;
     case 'reviews-bad':
-
+      filteredReviews.sort(function(a, b) {
+        return a.rating - b.rating;
+      });
       break;
     case 'reviews-popular':
-
+      filteredReviews.sort(function(a, b) {
+        return a.reviewRating - b.reviewRating;
+      });
       break;
     default:
 
