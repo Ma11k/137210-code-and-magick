@@ -87,7 +87,7 @@ function setFilter(id) {
       break;
     case 'reviews-recent':
       filteredReviews.sort(function(a, b) {
-        return b.date - a.date;
+        return new Date(b.date) - new Date(a.date);
       });
       break;
     case 'reviews-good':
