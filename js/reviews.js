@@ -2,11 +2,6 @@
 
 var reviews = null;
 var xhr = new XMLHttpRequest();
-/**
- * @param {string} method
- * @param {string} URL
- * @param {boolean} async
-*/
 xhr.open('GET', 'data/reviews.json');
 xhr.timeout = 10000;
 /**
@@ -61,8 +56,8 @@ function getElementFromTemplate(data) {
  * @param {Object} data
 */
 function renderReviews(reviewsToRender) {
-  if (!reviewsToRender.length) {
-    filtersAll.classList.add('invisible');
+  if (reviewsToRender.length) {
+    filtersAll.classList.remove('invisible');
   }
   var container = document.querySelector('.reviews-list');
   container.innerHTML = '';
@@ -110,11 +105,12 @@ function setFilter(id) {
 }
 
 (function() {
+  filtersAll.classList.add('invisible');
   reviewsContainer.classList.add('reviews-list-loading');
   Array.prototype.slice.call(filtersAll.children).forEach(function(item) {
-    item.onclick = function(evt) {
+    item.addEventListener('click', function(evt) {
       var filterID = evt.target.id;
       setFilter(filterID);
-    };
+    });
   });
 })();
