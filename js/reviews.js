@@ -86,18 +86,22 @@ function setFilter(id) {
       });
       break;
     case 'reviews-good':
-      filteredReviews.sort(function(a, b) {
+      filteredReviews = filteredReviews.sort(function(a, b) {
         return b.rating - a.rating;
+      }).filter(function(el) {
+        return el.rating > 2;
       });
       break;
     case 'reviews-bad':
-      filteredReviews.sort(function(a, b) {
+      filteredReviews = filteredReviews.sort(function(a, b) {
         return a.rating - b.rating;
+      }).filter(function(el) {
+        return el.rating < 3;
       });
       break;
     case 'reviews-popular':
       filteredReviews.sort(function(a, b) {
-        return a.reviewRating - b.reviewRating;
+        return a['review-rating'] - b['review-rating'];
       });
       break;
   }
