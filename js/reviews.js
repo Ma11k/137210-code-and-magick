@@ -65,6 +65,9 @@ function renderReviews(reviewsToRender, pageNumber) {
   var from = pageNumber * REVIEWS_COUNT;
   var to = from + REVIEWS_COUNT;
   var pageReviews = reviewsToRender.slice(from, to);
+  if (pageReviews.length < reviews.length) {
+    reviewsContainer.querySelector('.reviews-controls-more').classList.remove('invisible');
+  }
 
   var fragment = document.createDocumentFragment();
   pageReviews.forEach(function(item) {
