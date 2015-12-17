@@ -22,10 +22,13 @@ var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
 var timplateContent = (template.content || template).children[0];
 var reviewsContainer = document.querySelector('.reviews');
+var showMore = reviewsContainer.querySelector('.reviews-controls-more');
 var filtersAll = document.querySelector('.reviews-filter');
 var activeFilter = 'reviews-all';
-var REVIEWS_COUNT = 3;
-
+var REVIEWS_PER_PAGE = 3;
+var reviewsPagesShow = 1;
+var pageNumber = 0;
+var filterID = 'reviews-all';
 /**
  * @param {Object} data
  * @return {Element}
@@ -56,19 +59,19 @@ function getElementFromTemplate(data) {
 /**
  * @param {Object} data
 */
-function renderReviews(reviewsToRender, pageNumber) {
+function renderReviews(reviewsToRender) {
   if (reviewsToRender.length) {
     filtersAll.classList.remove('invisible');
   }
   var container = document.querySelector('.reviews-list');
   container.innerHTML = '';
-  var from = pageNumber * REVIEWS_COUNT;
-  var to = from + REVIEWS_COUNT;
+  var from = pageNumber * REVIEWS_PER_PAGE;
+  var to = from + (REVIEWS_PER_PAGE * reviewsPagesShow);
   var pageReviews = reviewsToRender.slice(from, to);
   if (pageReviews.length < reviews.length) {
-    reviewsContainer.querySelector('.reviews-controls-more').classList.remove('invisible');
+    showMore.classList.remove('invisible');
   } else {
-    reviewsContainer.querySelector('.reviews-controls-more').classList.add('invisible');
+    showMore.classList.add('invisible');
   } //TODO переделать в toggle
 
   var fragment = document.createDocumentFragment();
@@ -123,8 +126,12 @@ function setFilter(id) {
   reviewsContainer.classList.add('reviews-list-loading');
   Array.prototype.slice.call(filtersAll.children).forEach(function(item) {
     item.addEventListener('click', function(evt) {
-      var filterID = evt.target.id;
+      filterID = evt.target.id;
       setFilter(filterID);
     });
+  });
+  showMore.addEventListener('click', function() {
+    reviewsPagesShow++;
+    renderReviews(reviews, 0);
   });
 })();
