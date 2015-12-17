@@ -68,7 +68,7 @@ function renderReviews(reviewsToRender) {
   var from = pageNumber * REVIEWS_PER_PAGE;
   var to = from + (REVIEWS_PER_PAGE * reviewsPagesShow);
   var pageReviews = reviewsToRender.slice(from, to);
-  if (pageReviews.length < reviews.length) {
+  if (pageReviews.length < reviewsToRender.length) {
     showMore.classList.remove('invisible');
   } else {
     showMore.classList.add('invisible');
@@ -127,11 +127,12 @@ function setFilter(id) {
   Array.prototype.slice.call(filtersAll.children).forEach(function(item) {
     item.addEventListener('click', function(evt) {
       filterID = evt.target.id;
+      reviewsPagesShow = 1;
       setFilter(filterID);
     });
   });
   showMore.addEventListener('click', function() {
     reviewsPagesShow++;
-    renderReviews(reviews, 0);
+    setFilter(filterID);
   });
 })();
