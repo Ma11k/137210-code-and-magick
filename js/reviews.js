@@ -67,7 +67,9 @@ function renderReviews(reviewsToRender, pageNumber) {
   var pageReviews = reviewsToRender.slice(from, to);
   if (pageReviews.length < reviews.length) {
     reviewsContainer.querySelector('.reviews-controls-more').classList.remove('invisible');
-  }
+  } else {
+    reviewsContainer.querySelector('.reviews-controls-more').classList.add('invisible');
+  } //TODO переделать в toggle
 
   var fragment = document.createDocumentFragment();
   pageReviews.forEach(function(item) {
