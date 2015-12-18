@@ -22,8 +22,9 @@ var template = document.querySelector('#review-template');
 var ratingArr = ['one', 'two', 'three', 'four', 'five'];
 var timplateContent = (template.content || template).children[0];
 var reviewsContainer = document.querySelector('.reviews');
+var container = reviewsContainer.querySelector('.reviews-list');
 var showMore = reviewsContainer.querySelector('.reviews-controls-more');
-var filtersAll = document.querySelector('.reviews-filter');
+var filtersAll = reviewsContainer.querySelector('.reviews-filter');
 var activeFilter = 'reviews-all';
 var REVIEWS_PER_PAGE = 3;
 var reviewsPagesShow = 1;
@@ -63,7 +64,6 @@ function renderReviews(reviewsToRender) {
   if (reviewsToRender.length) {
     filtersAll.classList.remove('invisible');
   }
-  var container = document.querySelector('.reviews-list');
   container.innerHTML = '';
   var from = pageNumber * REVIEWS_PER_PAGE;
   var to = from + (REVIEWS_PER_PAGE * reviewsPagesShow);
@@ -72,8 +72,7 @@ function renderReviews(reviewsToRender) {
     showMore.classList.remove('invisible');
   } else {
     showMore.classList.add('invisible');
-  } //TODO переделать в toggle
-
+  }
   var fragment = document.createDocumentFragment();
   pageReviews.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
@@ -86,7 +85,7 @@ function renderReviews(reviewsToRender) {
  * @param {string} id of active filter
 */
 function setFilter(id) {
-  if (activeFilter === id) {
+  if (activeFilter === id && reviewsPagesShow * REVIEWS_PER_PAGE === container.length) {
     return;
   }
   var filteredReviews = reviews.slice(0);
@@ -116,6 +115,8 @@ function setFilter(id) {
       filteredReviews.sort(function(a, b) {
         return a['review-rating'] - b['review-rating'];
       });
+      break;
+    default:
       break;
   }
   renderReviews(filteredReviews, 0);
