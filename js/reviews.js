@@ -125,15 +125,16 @@ function setFilter(id) {
 (function() {
   filtersAll.classList.add('invisible');
   reviewsContainer.classList.add('reviews-list-loading');
-  Array.prototype.slice.call(filtersAll.children).forEach(function(item) {
-    item.addEventListener('click', function(evt) {
-      filterID = evt.target.id;
+  reviewsContainer.addEventListener('click', function(evt) {
+    var clicked = evt.target;
+    if (clicked.classList.contains('reviews-filter-item')) {
+      filterID = clicked.htmlFor;
       reviewsPagesShow = 1;
       setFilter(filterID);
-    });
-  });
-  showMore.addEventListener('click', function() {
-    reviewsPagesShow++;
-    setFilter(filterID);
+    }
+    if (clicked.classList.contains('reviews-controls-more')) {
+      reviewsPagesShow++;
+      setFilter(filterID);
+    }
   });
 })();
