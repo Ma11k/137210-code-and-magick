@@ -26,10 +26,9 @@ var container = reviewsContainer.querySelector('.reviews-list');
 var showMore = reviewsContainer.querySelector('.reviews-controls-more');
 var filtersAll = reviewsContainer.querySelector('.reviews-filter');
 var activeFilter = 'reviews-all';
-var REVIEWS_PER_PAGE = 3;
-var reviewsPagesShow = 1;
+var REV_PER_PAGE = 3;
+var revPagesShow = 1;
 var pageNumber = 0;
-var filterID = 'reviews-all';
 /**
  * @param {Object} data
  * @return {Element}
@@ -65,8 +64,8 @@ function renderReviews(reviewsToRender) {
     filtersAll.classList.remove('invisible');
   }
   container.innerHTML = '';
-  var from = pageNumber * REVIEWS_PER_PAGE;
-  var to = from + (REVIEWS_PER_PAGE * reviewsPagesShow);
+  var from = pageNumber * REV_PER_PAGE;
+  var to = from + (REV_PER_PAGE * revPagesShow);
   var pageReviews = reviewsToRender.slice(from, to);
   if (pageReviews.length < reviewsToRender.length) {
     showMore.classList.remove('invisible');
@@ -85,7 +84,7 @@ function renderReviews(reviewsToRender) {
  * @param {string} id of active filter
 */
 function setFilter(id) {
-  if (activeFilter === id && reviewsPagesShow * REVIEWS_PER_PAGE === container.length) {
+  if (activeFilter === id && revPagesShow * REV_PER_PAGE === container.length) {
     return;
   }
   var filteredReviews = reviews.slice(0);
@@ -116,8 +115,6 @@ function setFilter(id) {
         return a['review-rating'] - b['review-rating'];
       });
       break;
-    default:
-      break;
   }
   renderReviews(filteredReviews, 0);
 }
@@ -128,13 +125,12 @@ function setFilter(id) {
   reviewsContainer.addEventListener('click', function(evt) {
     var clicked = evt.target;
     if (clicked.classList.contains('reviews-filter-item')) {
-      filterID = clicked.htmlFor;
-      reviewsPagesShow = 1;
-      setFilter(filterID);
+      revPagesShow = 1;
+      setFilter(clicked.htmlFor);
     }
     if (clicked.classList.contains('reviews-controls-more')) {
-      reviewsPagesShow++;
-      setFilter(filterID);
+      revPagesShow++;
+      setFilter(filtersAll.querySelector('input:checked').id);
     }
   });
 })();
