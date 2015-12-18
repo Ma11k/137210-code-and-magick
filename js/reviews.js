@@ -25,7 +25,6 @@ var reviewsContainer = document.querySelector('.reviews');
 var container = reviewsContainer.querySelector('.reviews-list');
 var showMore = reviewsContainer.querySelector('.reviews-controls-more');
 var filtersAll = reviewsContainer.querySelector('.reviews-filter');
-var activeFilter = 'reviews-all';
 var REV_PER_PAGE = 3;
 var pageNumber = 0;
 /**
