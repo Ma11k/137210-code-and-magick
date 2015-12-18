@@ -27,7 +27,6 @@ var showMore = reviewsContainer.querySelector('.reviews-controls-more');
 var filtersAll = reviewsContainer.querySelector('.reviews-filter');
 var activeFilter = 'reviews-all';
 var REV_PER_PAGE = 3;
-var revPagesShow = 1;
 var pageNumber = 0;
 /**
  * @param {Object} data
@@ -63,29 +62,29 @@ function renderReviews(reviewsToRender) {
   if (reviewsToRender.length) {
     filtersAll.classList.remove('invisible');
   }
-  container.innerHTML = '';
   var from = pageNumber * REV_PER_PAGE;
-  var to = from + (REV_PER_PAGE * revPagesShow);
+  var to = from + REV_PER_PAGE;
   var pageReviews = reviewsToRender.slice(from, to);
-  if (pageReviews.length < reviewsToRender.length) {
-    showMore.classList.remove('invisible');
-  } else {
-    showMore.classList.add('invisible');
-  }
   var fragment = document.createDocumentFragment();
   pageReviews.forEach(function(item) {
     var oneReview = getElementFromTemplate(item);
     fragment.appendChild(oneReview);
   });
   container.appendChild(fragment);
+  if (container.children.length < reviewsToRender.length) {
+    showMore.classList.remove('invisible');
+  } else {
+    showMore.classList.add('invisible');
+  }
 }
 
 /**
  * @param {string} id of active filter
+ * @param {boolean} refilter
 */
-function setFilter(id) {
-  if (activeFilter === id && revPagesShow * REV_PER_PAGE === container.length) {
-    return;
+function setFilter(id, refilter) {
+  if (refilter) {
+    container.innerHTML = '';
   }
   var filteredReviews = reviews.slice(0);
   switch (id) {
@@ -116,7 +115,7 @@ function setFilter(id) {
       });
       break;
   }
-  renderReviews(filteredReviews, 0);
+  renderReviews(filteredReviews);
 }
 
 (function() {
@@ -124,13 +123,13 @@ function setFilter(id) {
   reviewsContainer.classList.add('reviews-list-loading');
   reviewsContainer.addEventListener('click', function(evt) {
     var clicked = evt.target;
-    if (clicked.classList.contains('reviews-filter-item')) {
-      revPagesShow = 1;
-      setFilter(clicked.htmlFor);
+    if (clicked.classList.contains('reviews-filter-item') && !filtersAll[clicked.htmlFor].checked) {
+      pageNumber = 0;
+      setFilter(clicked.htmlFor, true);
     }
     if (clicked.classList.contains('reviews-controls-more')) {
-      revPagesShow++;
-      setFilter(filtersAll.querySelector('input:checked').id);
+      pageNumber++;
+      setFilter(filtersAll.querySelector('input:checked').id, false);
     }
   });
 })();
