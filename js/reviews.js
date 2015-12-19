@@ -1,6 +1,7 @@
 'use strict';
 
 var reviews = null;
+var filteredReviews;
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'data/reviews.json');
 xhr.timeout = 10000;
@@ -10,6 +11,7 @@ xhr.timeout = 10000;
 xhr.onload = function(evt) {
   reviewsContainer.classList.remove('reviews-list-loading');
   reviews = JSON.parse(evt.srcElement.response);
+  filteredReviews = reviews;
   renderReviews(reviews, 0);
 };
 xhr.onerror = function() {
@@ -56,8 +58,12 @@ function getElementFromTemplate(data) {
 
 /**
  * @param {Object} data
+ * @param {boolean} redraw
 */
-function renderReviews(reviewsToRender) {
+function renderReviews(reviewsToRender, redraw) {
+  if (redraw) {
+    container.innerHTML = '';
+  }
   if (reviewsToRender.length) {
     filtersAll.classList.remove('invisible');
   }
@@ -79,13 +85,9 @@ function renderReviews(reviewsToRender) {
 
 /**
  * @param {string} id of active filter
- * @param {boolean} refilter
 */
-function setFilter(id, refilter) {
-  if (refilter) {
-    container.innerHTML = '';
-  }
-  var filteredReviews = reviews.slice(0);
+function setFilter(id) {
+  filteredReviews = reviews.slice(0);
   switch (id) {
     case 'reviews-all':
       break;
@@ -114,7 +116,7 @@ function setFilter(id, refilter) {
       });
       break;
   }
-  renderReviews(filteredReviews);
+  renderReviews(filteredReviews, true);
 }
 
 (function() {
@@ -124,11 +126,11 @@ function setFilter(id, refilter) {
     var clicked = evt.target;
     if (clicked.classList.contains('reviews-filter-item') && !filtersAll[clicked.htmlFor].checked) {
       pageNumber = 0;
-      setFilter(clicked.htmlFor, true);
+      setFilter(clicked.htmlFor);
     }
     if (clicked.classList.contains('reviews-controls-more')) {
       pageNumber++;
-      setFilter(filtersAll.querySelector('input:checked').id, false);
+      renderReviews(filteredReviews, false);
     }
   });
 })();
